@@ -28,12 +28,12 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_mount.dae"/>
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_mount.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_mount_c.STL"/>
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_mount_c.STL"/>
       </geometry>
     </collision>
   </link>
@@ -47,13 +47,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_base.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_base.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_base_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_base_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -72,13 +72,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_palm.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_palm.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_palm_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_palm_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -97,13 +97,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_1_1.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_1_1.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_1_1_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_1_1_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -124,13 +124,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_1_2.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_1_2.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_1_2_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_1_2_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -151,13 +151,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_1_3.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_1_3.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_1_3_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_1_3_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -178,13 +178,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_1_4.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_1_4.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_1_4_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_1_4_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -205,13 +205,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_1_tip.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_1_tip.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_1_tip_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_1_tip_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -230,13 +230,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_2_1.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_2_1.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_2_1_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_2_1_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -257,13 +257,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_2_2.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_2_2.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_2_2_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_2_2_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -284,13 +284,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_2_3.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_2_3.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_2_3_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_2_3_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -311,13 +311,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_2_4.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_2_4.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_2_4_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_2_4_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -338,13 +338,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_2_tip.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_2_tip.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_2_tip_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_2_tip_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -363,13 +363,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_3_1.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_3_1.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_3_1_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_3_1_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -390,13 +390,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_3_2.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_3_2.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_3_2_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_3_2_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -417,13 +417,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_3_3.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_3_3.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_3_3_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_3_3_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -444,13 +444,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_3_4.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_3_4.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_3_4_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_3_4_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -471,13 +471,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_3_tip.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_3_tip.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_3_tip_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_3_tip_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -496,13 +496,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_4_1.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_4_1.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_4_1_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_4_1_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -523,13 +523,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_4_2.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_4_2.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_4_2_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_4_2_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -550,13 +550,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_4_3.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_4_3.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_4_3_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_4_3_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -577,13 +577,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_4_4.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_4_4.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_4_4_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_4_4_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -604,13 +604,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_4_tip.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_4_tip.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_4_tip_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_4_tip_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -629,13 +629,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_5_1.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_5_1.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_5_1_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_5_1_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -656,13 +656,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_5_2.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_5_2.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_5_2_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_5_2_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -683,13 +683,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_5_3.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_5_3.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_5_3_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_5_3_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -710,13 +710,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_5_4.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_5_4.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_5_4_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_5_4_c.STL" />
       </geometry>
     </collision>
   </link>
@@ -737,13 +737,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/visual/ll_dg_5_tip.dae" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/visual/ll_dg_5_tip.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="$(find dg_description)/meshes/dg5f_left/collision/ll_dg_5_tip_c.STL" />
+        <mesh filename="file://$(find dg_description)/meshes/dg5f_left/collision/ll_dg_5_tip_c.STL" />
       </geometry>
     </collision>
   </link>
