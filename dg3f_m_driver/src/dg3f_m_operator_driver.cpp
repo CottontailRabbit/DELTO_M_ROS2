@@ -1,7 +1,7 @@
 #include <memory>
 #include <thread>
 
-#include "dg3f_driver/dg3f_internal_TCP.hpp"
+#include "dg3f_driver/dg3f_operator_TCP.hpp"
 #include "rclcpp/executors/multi_threaded_executor.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/joint_state.hpp"

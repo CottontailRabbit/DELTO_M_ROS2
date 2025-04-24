@@ -75,10 +75,9 @@ hardware_interface::SystemInterface::CallbackReturn SystemInterface::on_init(
       RCLCPP_ERROR(
         rclcpp::get_logger("SystemInterface"),
         "Joint '%s' needs the following state interfaces in this "
-        "order: %s, %s, %s, and %s.",
+        "order: %s, %s",
         joint.name.c_str(), hardware_interface::HW_IF_POSITION,
-        hardware_interface::HW_IF_VELOCITY,
-        hardware_interface::HW_IF_EFFORT);
+        hardware_interface::HW_IF_VELOCITY);
       return CallbackReturn::ERROR;
     }
   }
@@ -109,7 +108,7 @@ hardware_interface::SystemInterface::CallbackReturn SystemInterface::on_init(
 }
 
 hardware_interface::SystemInterface::CallbackReturn
-SystemInterface::on_deactivate(const rclcpp_lifecycle::State & previous_state)
+SystemInterface::on_deactivate([[maybe_unused]] const rclcpp_lifecycle::State & previous_state)
 {
   if (delto_client_) {
     delto_client_->Disconnect();
@@ -186,7 +185,7 @@ SystemInterface::on_shutdown(
 void SystemInterface::init() {delto_client_->Connect();}
 
 SystemInterface::return_type SystemInterface::read(
-  const rclcpp::Time & time, const rclcpp::Duration & period)
+  [[maybe_unused]] const rclcpp::Time & time, [[maybe_unused]] const rclcpp::Duration & period)
 {
   try {
     if (!delto_client_) {

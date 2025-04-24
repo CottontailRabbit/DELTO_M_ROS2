@@ -42,61 +42,73 @@ dg3f_m_controller:
         i: 3.0
         d: 5.0
         i_clamp: 10.0
+        ff_velocity_scale: 0.0
       j_dg_1_2:
         p: 150.0
         i: 3.0
         d: 5.0
         i_clamp: 10.0
+        ff_velocity_scale: 0.0
       j_dg_1_3:
         p: 150.0
         i: 3.0
         d: 5.0
         i_clamp: 10.0
+        ff_velocity_scale: 0.0
       j_dg_1_4:
         p: 150.0
         i: 3.0
         d: 5.0
         i_clamp: 10.0
+        ff_velocity_scale: 0.0
       j_dg_2_1:
         p: 150.0
         i: 3.0
         d: 5.0
         i_clamp: 10.0
+        ff_velocity_scale: 0.0
       j_dg_2_2:
         p: 150.0
         i: 3.0
         d: 5.0
         i_clamp: 10.0
+        ff_velocity_scale: 0.0
       j_dg_2_3:
         p: 150.0
         i: 3.0
         d: 5.0
         i_clamp: 10.0
+        ff_velocity_scale: 0.0
       j_dg_2_4:
         p: 150.0
         i: 3.0
         d: 5.0
         i_clamp: 10.0
+        ff_velocity_scale: 0.0
       j_dg_3_1:
         p: 150.0
         i: 3.0
         d: 5.0
         i_clamp: 10.0
+        ff_velocity_scale: 0.0
       j_dg_3_2:
         p: 150.0
         i: 3.0
         d: 5.0
         i_clamp: 10.0
+        ff_velocity_scale: 0.0
       j_dg_3_3:
         p: 150.0
         i: 3.0
         d: 5.0
         i_clamp: 10.0
+        ff_velocity_scale: 0.0
       j_dg_3_4:
         p: 150.0
         i: 3.0
         d: 5.0
         i_clamp: 10.0
+        ff_velocity_scale: 0.0
 
     allow_partial_joints_goal: True
     joints:
