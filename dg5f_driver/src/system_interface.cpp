@@ -42,11 +42,10 @@
 
 namespace dg5f_driver {
 
-const static int leftMotorDir[20] = {1, 1, 1,  1, -1, 1, 1,  1, -1, 1,
-
+static const int leftMotorDir[20] = {1, 1, 1,  1, -1, 1, 1,  1, -1, 1,
                                1, 1, -1, 1, 1,  1, -1, 1, -1, -1};
 
-const static int rightMotorDir[20] = {1, 1, -1,  -1, -1, 1, 1,  1, -1, 1,
+static const int rightMotorDir[20] = {1, 1, -1,  -1, -1, 1, 1,  1, -1, 1,
                                 1, 1, -1, 1, 1,  1, -1, -1, -1, -1};
 
 hardware_interface::SystemInterface::CallbackReturn SystemInterface::on_init(
@@ -75,10 +74,9 @@ hardware_interface::SystemInterface::CallbackReturn SystemInterface::on_init(
               hardware_interface::HW_IF_VELOCITY)) {
       RCLCPP_ERROR(rclcpp::get_logger("SystemInterface"),
                    "Joint '%s' needs the following state interfaces in this "
-                   "order: %s, %s, %s, and %s.",
+                   "order: %s and %s.",
                    joint.name.c_str(), hardware_interface::HW_IF_POSITION,
-                   hardware_interface::HW_IF_VELOCITY,
-                   hardware_interface::HW_IF_EFFORT);
+                   hardware_interface::HW_IF_VELOCITY);
       return CallbackReturn::ERROR;
     }
   }
@@ -157,9 +155,6 @@ hardware_interface::SystemInterface::CallbackReturn SystemInterface::on_init(
       motor_dir_[i] = rightMotorDir[i];
     }
   } else {
-
-
-
     RCLCPP_ERROR(rclcpp::get_logger("SystemInterface"), "Invalid hand type: %s",
                  hand_type_.c_str());
     return CallbackReturn::ERROR;
@@ -174,7 +169,7 @@ hardware_interface::SystemInterface::CallbackReturn SystemInterface::on_init(
 }
 
 hardware_interface::SystemInterface::CallbackReturn
-SystemInterface::on_deactivate(const rclcpp_lifecycle::State& previous_state) {
+SystemInterface::on_deactivate([[maybe_unused]] const rclcpp_lifecycle::State& previous_state) {
   if (delto_client_) {
     delto_client_->Disconnect();
   }
@@ -242,7 +237,8 @@ SystemInterface::on_shutdown(
 void SystemInterface::init() { delto_client_->Connect(); }
 
 SystemInterface::return_type SystemInterface::read(
-    const rclcpp::Time& time, const rclcpp::Duration& period) {
+    [[maybe_unused]] const rclcpp::Time& time, 
+    [[maybe_unused]] const rclcpp::Duration& period) {
   try {
     if (!delto_client_) {
       std::cerr << "Client is not initialized" << std::endl;

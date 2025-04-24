@@ -26,7 +26,7 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include "dg5f_driver/delto_external_TCP.hpp"
+#include "dg5f_driver/delto_developer_TCP.hpp"
 
 namespace DeltoTCP
 {
@@ -65,10 +65,10 @@ Communication::Communication(
   bool fingertip_sensor, bool io)
 : ip_(ip),
   port_(port),
-  socket_(io_context_),
   model_(model),
   fingertip_sensor_(fingertip_sensor),
   io_(io),
+  socket_(io_context_),
   motor_count_(GetMotorCount(model)),
   byte_per_motor_(GetBytePerMotor(fingertip_sensor, io)),
   total_duty_packet_size_(HEADER_SIZE + motor_count_ * byte_per_motor_),
@@ -119,7 +119,7 @@ bool Communication::ReadFullPacket(
     return false;
   }
 
-  return bytes_read == expected_response_length_;
+  return bytes_read == static_cast<std::size_t>(expected_response_length_);
 }
 
 
@@ -194,9 +194,9 @@ DeltoReceivedData Communication::GetData()
   }
 
   // 5바이트
-  for (size_t i = 0; i < motor_count_; i++) {
+  for (int i = 0; i < motor_count_; i++) {
     size_t base = HEADER_SIZE + i * byte_per_motor_;
-    uint8_t motor_id = response[base];  // ID
+    [[maybe_unused]] uint8_t motor_id = response[base];  // ID
 
     uint8_t posL = response[base + 1];
     uint8_t posH = response[base + 2];
@@ -243,7 +243,7 @@ void Communication::SendDuty(std::vector<int> & duty)
   tcp_data_send[1] = (total_packet_size) & 0xFF;       // Length_l
   tcp_data_send[2] = SET_DUTY_CMD;                     // CMD
 
-  for (size_t i = 0; i < motor_count_; ++i) {
+  for (int i = 0; i < motor_count_; ++i) {
     tcp_data_send[3 + i * 3] = i + 1;                  // ID
     tcp_data_send[4 + i * 3] = (duty[i] >> 8) & 0xFF;  // 상위바이트
     tcp_data_send[5 + i * 3] = (duty[i]) & 0xFF;       // 하위바이트
