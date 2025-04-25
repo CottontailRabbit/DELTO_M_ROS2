@@ -1,10 +1,11 @@
+
 name: ROS 2 CI
 
 on:
   push:
-    branches: [humble-dev]
+    branches: [ humble ]
   pull_request:
-    branches: [humble-dev]
+    branches: [ humble ]
 
 jobs:
   build:
