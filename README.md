@@ -1,6 +1,6 @@
 <img src="/dg_description/image/title.svg"/>
 
-<img src="/dg_description/image/dg5f_1.png" alt="dg5f" width="300px"/> <img src="https://en.tesollo.com/wp-content/uploads/2024/12/DG-5F-6-1.webp" width="200px"/> <img src="https://tesollo.com/wp-content/uploads/2024/12/DG-3F-5-1.webp" width="200px"/> 
+<img src="/dg_description/image/dg5f_1.png" alt="dg5f" width="300px"/> <img src="https://en.tesollo.com/wp-content/uploads/2024/12/DG-5F-6-1.webp" width="300px"/> <img src="https://tesollo.com/wp-content/uploads/2024/12/DG-3F-5-1.webp" width="200px"/> 
 
 
 
