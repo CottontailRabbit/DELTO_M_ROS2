@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout source
@@ -21,6 +21,8 @@ jobs:
           required-ros-distributions: humble
 
       - name: Install dependencies
+        env:
+          ROS_DISTRO: humble
         run: |
           sudo apt update
           sudo rosdep init || true
