@@ -12,7 +12,7 @@ find_package(pluginlib REQUIRED)
 
 # delto_tcp 라이브러리 정의 (로컬 라이브러리)
 add_library(delto_tcp SHARED
-  src/delto_external_TCP.cpp
+  src/delto_developer_TCP.cpp
 )
 
 target_include_directories(delto_tcp PUBLIC
@@ -57,14 +57,14 @@ install(
   DESTINATION include
 )
 
-add_executable(dg3f_m_internal_driver src/dg3f_m_internal_driver.cpp)
-ament_target_dependencies(dg3f_m_internal_driver rclcpp trajectory_msgs sensor_msgs)
+add_executable(dg3f_m_operator_driver src/dg3f_m_operator_driver.cpp)
+ament_target_dependencies(dg3f_m_operator_driver rclcpp trajectory_msgs sensor_msgs)
 
 install(TARGETS 
-  dg3f_m_internal_driver
+  dg3f_m_operator_driver
   DESTINATION lib/${PROJECT_NAME})
 
-  target_include_directories(dg3f_m_internal_driver PUBLIC
+  target_include_directories(dg3f_m_operator_driver PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
 )
@@ -79,12 +79,12 @@ install(
 add_executable(dg3f_m_test_cpp src/dg3f_m_test.cpp)
 ament_target_dependencies(dg3f_m_test_cpp rclcpp trajectory_msgs)
 
-add_executable(dg3f_m_internal_test_cpp src/dg3f_m_internal_test.cpp)
-ament_target_dependencies(dg3f_m_internal_test_cpp rclcpp trajectory_msgs)
+add_executable(dg3f_m_operator_test_cpp src/dg3f_m_operator_test.cpp)
+ament_target_dependencies(dg3f_m_operator_test_cpp rclcpp trajectory_msgs)
 
 install(
   PROGRAMS 
-  script/dg3f_m_internal_test.py
+  script/dg3f_m_operator_test.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

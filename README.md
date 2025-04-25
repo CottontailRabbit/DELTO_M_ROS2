@@ -1,6 +1,8 @@
 <img src="/dg_description/image/title.svg"/>
 
-<img src="/dg_description/image/dg5f_1.png" alt="dg5f" width="400px"/> <img src="https://en.tesollo.com/wp-content/uploads/2024/12/DG-5F-6-1.webp" width="300px"/>
+<img src="/dg_description/image/dg5f_1.png" alt="dg5f" width="300px"/> <img src="https://en.tesollo.com/wp-content/uploads/2024/12/DG-5F-6-1.webp" width="300px"/> <img src="https://tesollo.com/wp-content/uploads/2024/12/DG-3F-5-1.webp" width="200px"/> 
+
+
 
 The DELTO_M_ROS2 Repository is a comprehensive ROS 2 package designed to support the Delto Gripper-M. This project includes simulations, control interfaces, and visualization tools for the gripper, enabling developers to efficiently develop and test robotic applications.
 
@@ -15,12 +17,12 @@ The DELTO_M_ROS2 Repository is a comprehensive ROS 2 package designed to support
 ## 📦 Package Structure
 
 The DELTO_M_ROS2 project comprises the following main packages:
-- [**dg3f_m_gz**](/dg3f_m_gz/): Provides Gazebo simulations and control interfaces for the Delto Gripper-3F. 
-- [**dg5f_gz**](/dg5f_gz/): Provides Gazebo simulations and control interfaces for the Delto Gripper-5F.
 - [**dg3f_m_driver**](/dg3f_m_driver/) ros2 control interfaces for the Delto Gripper-3F.
+- [**dg3f_m_gz**](/dg3f_m_gz/): Provides Gazebo simulations and control interfaces for the Delto Gripper-3F. 
 - [**dg5f_driver**](/dg5f_driver/) ros2 control interfaces for the Delto Gripper-5F.
+- [**dg5f_gz**](/dg5f_gz/): Provides Gazebo simulations and control interfaces for the Delto Gripper-5F.
 - [**dg_description**](/dg_description/): Contains URDF models and visualization configurations for the Delto Gripper-5F.
-- [**dg_isaacsim**](/dg_isaacsim/):  package provides a demonstration of integrating ROS2 with Isaac Sim
+- [**dg_isaacsim**](/dg_isaacsim/):  package provides a demonstration of integrating ROS2 with Isaac Sim.
 
 
 ## 🛠️ Installation and Build Instructions

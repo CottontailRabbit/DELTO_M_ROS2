@@ -13,7 +13,7 @@ find_package(trajectory_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED) 
 # delto_tcp 라이브러리 정의
 add_library(delto_tcp SHARED
-  src/delto_external_TCP.cpp
+  src/delto_developer_TCP.cpp
 )
 
 target_include_directories(delto_tcp PUBLIC
@@ -46,11 +46,11 @@ ament_target_dependencies(dg5f_driver
 )
 
 
-add_executable(dg5f_internal_driver src/dg5f_internal_driver.cpp)
-ament_target_dependencies(dg5f_internal_driver rclcpp trajectory_msgs sensor_msgs)
+add_executable(dg5f_operator_driver src/dg5f_operator_driver.cpp)
+ament_target_dependencies(dg5f_operator_driver rclcpp trajectory_msgs sensor_msgs)
 
 install(TARGETS 
-  dg5f_internal_driver
+  dg5f_operator_driver
   DESTINATION lib/${PROJECT_NAME})
 
   install(
@@ -60,7 +60,7 @@ install(TARGETS
   DESTINATION lib/${PROJECT_NAME}
 )
 
-  target_include_directories(dg5f_internal_driver PUBLIC
+  target_include_directories(dg5f_operator_driver PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
 )
