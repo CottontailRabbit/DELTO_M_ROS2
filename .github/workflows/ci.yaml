@@ -3,9 +3,9 @@ name: ROS 2 CI
 
 on:
   push:
-    branches: [ humble ]
+    branches: [ humble,  humble-dev ]
   pull_request:
-    branches: [ humble ]
+    branches: [ humble, humble-dev ]
 
 jobs:
   build:
