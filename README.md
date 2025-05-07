@@ -9,7 +9,7 @@ The DELTO_M_ROS2 Repository is a comprehensive ROS 2 package designed to support
 
 ## 📌 **Supported ROS Distributions**
 
-|  **ROS Version** |  **Ubuntu Version** |  **Branch** | **CI** |
+|  **ROS Version** |  **Ubuntu Version** |  **Branch** | **Build Status** |
 |------------------|----------------------|---------------|---------------|
 | ROS 2            | 22.04 (Jammy)        | `humble`        | ![Build Status](https://github.com/Tesollo-Delto/DELTO_M_ROS2/actions/workflows/ci.yaml/badge.svg?branch=humble) |
 
