@@ -4,8 +4,12 @@ name: ROS 2 CI
 on:
   push:
     branches: [ humble,  humble-dev ]
+    paths-ignore:
+      - 'README.md'
   pull_request:
     branches: [ humble, humble-dev ]
+    paths-ignore:
+      - 'README.md'
 
 jobs:
   build:
