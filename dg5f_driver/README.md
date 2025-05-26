@@ -29,6 +29,11 @@ colcon build --packages-select dg5f_driver
 
 ## 🎛️ Controlling Delto Gripper-5F-LEFT
 
+The dg5f_driver (ros2 control) are currently using operates in Developer Mode, which uses a custom protocol over Ethernet.
+If the gripper is set to Developer Mode, please make sure that switches ② and ④ are in the correct positions, as shown in the attached image.
+
+<img src="./images/manual.png" width="400px"/> 
+
 ### 1\. Loading Delto-Gripper-5F-LEFT controller
 
 Launch the Delto Gripper-5F-LEFT controller with:
