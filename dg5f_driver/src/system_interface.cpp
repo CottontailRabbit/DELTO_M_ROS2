@@ -182,7 +182,7 @@ std::vector<hardware_interface::StateInterface>
 SystemInterface::export_state_interfaces() {
   std::vector<hardware_interface::StateInterface> state_interfaces;
   state_interfaces.reserve(info_.joints.size() *
-                           2);  // position, velocity, effort
+                           3);  // position, velocity, effort
 
   for (size_t i = 0; i < info_.joints.size(); i++) {
     state_interfaces.emplace_back(hardware_interface::StateInterface(
@@ -193,8 +193,13 @@ SystemInterface::export_state_interfaces() {
         info_.joints[i].name, hardware_interface::HW_IF_VELOCITY,
         &velocities_[i]));
 
+    // Add effort state interface
+    state_interfaces.emplace_back(hardware_interface::StateInterface(
+        info_.joints[i].name, hardware_interface::HW_IF_EFFORT,
+        &efforts_[i]));
+
     std::cout << "export_state_interfaces: " << info_.joints[i].name
-              << std::endl;
+              << " (position, velocity, effort)" << std::endl;
   }
 
   return state_interfaces;

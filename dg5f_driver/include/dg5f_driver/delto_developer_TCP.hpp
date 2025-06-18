@@ -81,7 +81,7 @@ class Communication {
 
   static constexpr std::size_t HEADER_SIZE = 3;  // Length(2) + CMD(1)
   static constexpr double POSITION_SCALE = (M_PI / 1800.0);
-  static constexpr double CURRENT_SCALE = 1000.0;
+  static constexpr double CURRENT_SCALE = 1.0;
   static constexpr double VELOCITY_SCALE = (M_PI / 1800.0);
   
   int GetBytePerMotor (bool fingertip_sensor, bool io);
