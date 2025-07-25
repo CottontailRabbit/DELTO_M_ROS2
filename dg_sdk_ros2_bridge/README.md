@@ -83,7 +83,7 @@ system_setting = GripperSystemSetting()
 system_setting.comport = "/dev/ttyUSB0"  # For serial connection
 system_setting.ip = "169.254.5.72"      # For Ethernet connection
 system_setting.port = 502
-system_setting.communication_mode = 0    # 0: Serial, 1: Ethernet
+system_setting.communication_mode = 0    # 1: Serial, 0: Ethernet
 system_setting.control_mode = 1
 system_setting.baudrate = 115200
 
@@ -106,14 +106,14 @@ print("Configuration result:", result.result)
 
 ### Serial (USB) Connection
 ```python
-system_setting.communication_mode = 0
+system_setting.communication_mode = 1
 system_setting.comport = "/dev/ttyUSB0"  # Adjust to your device
 system_setting.baudrate = 115200
 ```
 
 ### Ethernet (TCP/IP) Connection
 ```python
-system_setting.communication_mode = 1
+system_setting.communication_mode = 0
 system_setting.ip = "169.254.5.72"  # Gripper IP address
 system_setting.port = 502            # Modbus TCP port
 ```
