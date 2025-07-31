@@ -62,11 +62,11 @@ def main(args=None):
     # gripper  setting
     gs = GripperSetting()
 
-    gs.model = 0x3F02
+    gs.model = 0x3F01 #DG3FB 
     gs.moving_inpose = 0.5
     gs.joint_inpose = [0.0] * 20
     gs.joint_offset = [0.0] * 20
-    gs.received_data_type = [1, 2, 3, 4, 0, 0]
+    gs.received_data_type = [1, 2, 0, 0, 0, 0]
     gs.joint_count = 12
     gs.finger_count = 3
 
