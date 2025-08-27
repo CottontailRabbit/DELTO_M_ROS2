@@ -34,5 +34,5 @@ jobs:
 
       - name: Build with colcon
         run: |
-          source /opt/ros/humble/setup.bash
+          source /opt/ros/jazzy/setup.bash
           colcon build --event-handlers console_direct+
