@@ -43,50 +43,58 @@ class JointTrajectoryPublisher(Node):
     def __init__(self):
         super().__init__('joint_trajectory_publisher')
         self.publisher_ = self.create_publisher(
-            JointTrajectory, '/dg5f_right_controller/joint_trajectory', 10)
-        timer_period = 2.0
+            JointTrajectory, '/joint_trajectory_controller/joint_trajectory', 10)
+        # Increased to 4 seconds to allow trajectory completion
+        timer_period = 4.0
         self.timer = self.create_timer(timer_period, self.timer_callback)
-        self.joint_names = ["rj_dg_1_1", "rj_dg_1_2", "rj_dg_1_3", "rj_dg_1_4",
-                            "rj_dg_2_1", "rj_dg_2_2", "rj_dg_2_3", "rj_dg_2_4",
-                            "rj_dg_3_1", "rj_dg_3_2", "rj_dg_3_3", "rj_dg_3_4",
-                            "rj_dg_4_1", "rj_dg_4_2", "rj_dg_4_3", "rj_dg_4_4",
-                            "rj_dg_5_1", "rj_dg_5_2", "rj_dg_5_3", "rj_dg_5_4"]
+        self.joint_names = ["j_dg_1_1", "j_dg_1_2", "j_dg_1_3", "j_dg_1_4",
+                            "j_dg_2_1", "j_dg_2_2", "j_dg_2_3", "j_dg_2_4",
+                            "j_dg_3_1", "j_dg_3_2", "j_dg_3_3", "j_dg_3_4",
+                            "j_dg_4_1", "j_dg_4_2", "j_dg_4_3", "j_dg_4_4",
+                            "j_dg_1_inner", "j_dg_4_inner"
+                            ]
 
         self.angles = [[0.0, 0.0, 0.0, 0.0,
                         0.0, 0.0, 0.0, 0.0,
                         0.0, 0.0, 0.0, 0.0,
                         0.0, 0.0, 0.0, 0.0,
-                        0.0, 0.0, 0.0, 0.0],
+                        0.0, 0.0
+                        ],
 
-                       [0.0, 0.0, d2r(80), d2r(80),
-                        0.0, 0.0, 0.0, 0.0,
-                        0.0, 0.0, 0.0, 0.0,
-                        0.0, 0.0, 0.0, 0.0,
-                        0.0, 0.0, 0.0, 0.0],
+                       #    [d2r(0), d2r(0), d2r(80), d2r(80),
+                       #     0.0, 0.0, 0.0, 0.0,
+                       #     0.0, 0.0, 0.0, 0.0,
+                       #     0.0, 0.0, 0.0, 0.0,
+                       #     0.0, 0.0
+                       #     ],
+
+                       #    [0.0, 0.0, 0.0, 0.0,
+                       #     0.0, 0.0, d2r(80), d2r(80),
+                       #     0.0, 0.0, 0.0, 0.0,
+                       #     0.0, 0.0, 0.0, 0.0,
+                       #     0.0, 0.0
+                       #     ],
+
+                       #    [0.0, 0.0, 0.0, 0.0,
+                       #     0.0, 0.0, 0.0, 0.0,
+                       #     0.0, 0.0, d2r(80), d2r(80),
+                       #     0.0, 0.0, 0.0, 0.0,
+                       #     0.0, 0.0
+                       #     ],
+
+                       #    [0.0, 0.0, 0.0, 0.0,
+                       #     0.0, 0.0, 0.0, 0.0,
+                       #     0.0, 0.0, 0.0, 0.0,
+                       #     0.0, 0.0, d2r(80), d2r(80),
+                       #     0.0, 0.0
+                       #     ],
 
                        [0.0, 0.0, 0.0, 0.0,
-                        0.0, 0.0, d2r(80), d2r(80),
-                        0.0, 0.0, 0.0, 0.0,
-                        0.0, 0.0, 0.0, 0.0,
-                        0.0, 0.0, 0.0, 0.0],
-
-                       [0.0, 0.0, 0.0, 0.0,
-                        0.0, 0.0, 0.0, 0.0,
-                        0.0, 0.0, d2r(80), d2r(80),
-                        0.0, 0.0, 0.0, 0.0,
-                        0.0, 0.0, 0.0, 0.0],
-
-                       [0.0, 0.0, 0.0, 0.0,
-                        0.0, 0.0, 0.0, 0.0,
-                        0.0, 0.0, 0.0, 0.0,
-                        0.0, 0.0, d2r(80), d2r(80),
-                        0.0, 0.0, 0.0, 0.0],
-
-                       [0.0, 0.0, 0.0, 0.0,
                         0.0, 0.0, 0.0, 0.0,
                         0.0, 0.0, 0.0, 0.0,
                         0.0, 0.0, 0.0, 0.0,
-                        0.0, 0.0, d2r(80), d2r(80)]]
+                        d2r(130.0), d2r(-130.0)
+                        ]]
 
         self.index = 0
 
@@ -96,7 +104,8 @@ class JointTrajectoryPublisher(Node):
 
         point = JointTrajectoryPoint()
         point.positions = self.angles[self.index]
-        point.time_from_start = Duration(sec=0, nanosec=0)
+        # Increased to 3 seconds for smoother movement
+        point.time_from_start = Duration(sec=3, nanosec=0)
 
         message.points.append(point)
         self.get_logger().info("Joint Trajectory  #{} publish : {}".format(

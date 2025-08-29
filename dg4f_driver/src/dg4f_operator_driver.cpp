@@ -3,7 +3,7 @@
 
 
 #include <iostream>
-#include "dg5f_driver/dg5f_operator_TCP.hpp"
+#include "dg4f_driver/dg4f_operator_TCP.hpp"
 #include "rclcpp/executors/multi_threaded_executor.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/joint_state.hpp"
@@ -24,9 +24,9 @@ std::vector<std::string> joint_names_right = {
     "rj_dg_3_3", "rj_dg_3_4", "rj_dg_4_1", "rj_dg_4_2", "rj_dg_4_3",
     "rj_dg_4_4", "rj_dg_5_1", "rj_dg_5_2", "rj_dg_5_3", "rj_dg_5_4"};
 
-class dg5fDriver : public rclcpp::Node {
+class dg4fDriver : public rclcpp::Node {
  public:
-  dg5fDriver() : Node("dg5FDriver") {
+  dg4fDriver() : Node("dg5FDriver") {
     this->declare_parameter<std::string>("ip", "169.254.186.72");
     this->declare_parameter<int>("port", 502);
     this->declare_parameter<std::string>("hand_type", "right");
@@ -41,13 +41,13 @@ class dg5fDriver : public rclcpp::Node {
 
     subscription_ = this->create_subscription<std_msgs::msg::Float32MultiArray>(
         "/taget_joint", 10,
-        std::bind(&dg5fDriver::topic_callback, this, std::placeholders::_1));
+        std::bind(&dg4fDriver::topic_callback, this, std::placeholders::_1));
 
     timer_ = this->create_wall_timer(
-        50ms, std::bind(&dg5fDriver::timer_callback, this));
+        50ms, std::bind(&dg4fDriver::timer_callback, this));
 
     try {
-      delto_client_ = std::make_unique<DG5F_TCP>(ip_, port_);
+      delto_client_ = std::make_unique<DG4F_TCP>(ip_, port_);
       delto_client_->connect();
     } catch (const boost::system::system_error& e) {
       if (e.code() != boost::asio::error::operation_aborted &&
@@ -57,7 +57,7 @@ class dg5fDriver : public rclcpp::Node {
     }
   }
 
-  ~dg5fDriver() {
+  ~dg4fDriver() {
     // Cancel timers first
     if (timer_) {
       timer_->cancel();
@@ -83,8 +83,8 @@ class dg5fDriver : public rclcpp::Node {
 
   void timer_callback() {
     data = delto_client_->get_data();
-    // this->get_logger().info("Received data fr som DG5F");S?
-    RCLCPP_INFO(this->get_logger(), "Received data from DG5F");
+    // this->get_logger().info("Received data fr som DG4F");S?
+    RCLCPP_INFO(this->get_logger(), "Received data from DG4F");
     // Publish joint states
     auto joint_state = sensor_msgs::msg::JointState();
     joint_state.header.stamp = this->get_clock()->now();
@@ -106,7 +106,7 @@ class dg5fDriver : public rclcpp::Node {
   std::string ip_;
   int port_;
   std::string joint_prefix_;
-  std::unique_ptr<DG5F_TCP> delto_client_;
+  std::unique_ptr<DG4F_TCP> delto_client_;
   rclcpp::TimerBase::SharedPtr timer_;
   rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr publisher_;
   rclcpp::Subscription<std_msgs::msg::Float32MultiArray>::SharedPtr
@@ -121,7 +121,7 @@ int main(int argc, char* argv[]) {
   rclcpp::executors::MultiThreadedExecutor executor(rclcpp::ExecutorOptions(),
                                                     2);
 
-  auto node = std::make_shared<dg5fDriver>();
+  auto node = std::make_shared<dg4fDriver>();
 
   executor.add_node(node);
   executor.spin();

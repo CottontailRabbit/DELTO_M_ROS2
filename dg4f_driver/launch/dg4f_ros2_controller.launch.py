@@ -41,7 +41,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "delto_ip",
-            default_value="169.254.186.73",
+            default_value="169.254.186.72",
             description="IP address for gripper"
         )
     )
@@ -57,41 +57,29 @@ def generate_launch_description():
 
     delto_port = LaunchConfiguration("delto_port")
 
-    # declared_arguments.append(
-    #     DeclareLaunchArgument(
-    #         "firmware_version",
-    #         description="firmware_version for gripper"
-    #     )
-    # )
-
-    # firmware_version = LaunchConfiguration("firmware_version")
-
     # Get paths to config files
     robot_description_content = Command(
         [
             PathJoinSubstitution([FindExecutable(name="xacro")]),
             " ",
             PathJoinSubstitution(
-                [FindPackageShare("dg5f_driver"), "urdf",
-                 "dg5f_left_ros2_control.xacro"]
+                [FindPackageShare("dg4f_driver"), "urdf",
+                 "dg4f_ros2_control.xacro"]
             ),
             " ",
             "delto_ip:=",
             delto_ip,
             " ",
             "delto_port:=",
-            delto_port,
-            # " ",
-            # "firmware_version:=",
-            # firmware_version
+            delto_port
         ]
     )
 
     robot_description = {"robot_description": robot_description_content}
 
     robot_controllers = PathJoinSubstitution(
-        [FindPackageShare("dg5f_driver"), "config",
-         "dg5f_left_controller.yaml"]
+        [FindPackageShare("dg4f_driver"), "config",
+         "dg4f_controller.yaml"]
     )
 
     # ROS2 Control Node
@@ -118,11 +106,11 @@ def generate_launch_description():
         output="screen",
     )
 
-    # Delto 5F Controller
+    # Delto 4F Controller
     delto_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["dg5f_left_controller"],
+        arguments=["dg4f_controller"],
         output="screen",
     )
 

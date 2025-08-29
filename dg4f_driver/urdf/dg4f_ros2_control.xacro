@@ -2,136 +2,128 @@
 <robot name="delto_5f" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 
-    <xacro:include filename="$(find dg_description)/urdf/dg5f_left.xacro" />
+    <xacro:include filename="$(find dg_description)/urdf/dg4f.urdf" />
 
 
     <link name="base_link" />
 
     <joint name="base_joint" type="fixed">
         <parent link="base_link" />
-        <child link="left_base_link" />
+        <child link="l_dg_mount" />
         <origin xyz="0 0 0" rpy="0 0 0" />
     </joint>
 
-    <ros2_control name="dg5f_driver" type="system">
+    <ros2_control name="dg4f_driver" type="system">
         <hardware>
-            <plugin>dg5f_driver/SystemInterface</plugin>
+            <plugin>dg4f_driver/SystemInterface</plugin>
+
+            <!-- GripperOption -->
             <param name="delto_ip">$(arg delto_ip)</param>
             <param name="delto_port">$(arg delto_port)</param>
-            <param name="delto_model">24338</param>
-            <param name="hand_type">left</param>
-            <!-- <param name="firmware_version">$(arg firmware_version)</param> -->
+            <param name="delto_model">20226</param> <!-- 0x4F02 -->
         </hardware>
 
         <!-- Finger 1 joints -->
-        <joint name="lj_dg_1_1">
+        <joint name="j_dg_1_1">
             <command_interface name="effort" />
             <state_interface name="position" />
             <state_interface name="velocity" />
         </joint>
-        <joint name="lj_dg_1_2">
+        <joint name="j_dg_1_2">
             <command_interface name="effort" />
             <state_interface name="position" />
             <state_interface name="velocity" />
         </joint>
-        <joint name="lj_dg_1_3">
+        <joint name="j_dg_1_3">
             <command_interface name="effort" />
             <state_interface name="position" />
             <state_interface name="velocity" />
         </joint>
-        <joint name="lj_dg_1_4">
+        <joint name="j_dg_1_4">
             <command_interface name="effort" />
             <state_interface name="position" />
             <state_interface name="velocity" />
         </joint>
 
         <!-- Finger 2 joints -->
-        <joint name="lj_dg_2_1">
+        <joint name="j_dg_2_1">
             <command_interface name="effort" />
             <state_interface name="position" />
             <state_interface name="velocity" />
         </joint>
-        <joint name="lj_dg_2_2">
+        <joint name="j_dg_2_2">
             <command_interface name="effort" />
             <state_interface name="position" />
             <state_interface name="velocity" />
         </joint>
-        <joint name="lj_dg_2_3">
+        <joint name="j_dg_2_3">
             <command_interface name="effort" />
             <state_interface name="position" />
             <state_interface name="velocity" />
         </joint>
-        <joint name="lj_dg_2_4">
+        <joint name="j_dg_2_4">
             <command_interface name="effort" />
             <state_interface name="position" />
             <state_interface name="velocity" />
         </joint>
 
         <!-- Finger 3 joints -->
-        <joint name="lj_dg_3_1">
+        <joint name="j_dg_3_1">
             <command_interface name="effort" />
             <state_interface name="position" />
             <state_interface name="velocity" />
         </joint>
-        <joint name="lj_dg_3_2">
+        <joint name="j_dg_3_2">
             <command_interface name="effort" />
             <state_interface name="position" />
             <state_interface name="velocity" />
         </joint>
-        <joint name="lj_dg_3_3">
+        <joint name="j_dg_3_3">
             <command_interface name="effort" />
             <state_interface name="position" />
             <state_interface name="velocity" />
         </joint>
-        <joint name="lj_dg_3_4">
+        <joint name="j_dg_3_4">
             <command_interface name="effort" />
             <state_interface name="position" />
             <state_interface name="velocity" />
         </joint>
 
         <!-- Finger 4 joints -->
-        <joint name="lj_dg_4_1">
+         <joint name="j_dg_4_1">
             <command_interface name="effort" />
             <state_interface name="position" />
             <state_interface name="velocity" />
         </joint>
-        <joint name="lj_dg_4_2">
+        <joint name="j_dg_4_2">
             <command_interface name="effort" />
             <state_interface name="position" />
             <state_interface name="velocity" />
         </joint>
-        <joint name="lj_dg_4_3">
+        <joint name = "j_dg_4_3">
             <command_interface name="effort" />
             <state_interface name="position" />
             <state_interface name="velocity" />
         </joint>
-        <joint name="lj_dg_4_4">
+        <joint name = "j_dg_4_4">
             <command_interface name="effort" />
             <state_interface name="position" />
             <state_interface name="velocity" />
         </joint>
 
-        <!-- Finger 5 joints -->
-        <joint name="lj_dg_5_1">
+        <joint name = "j_dg_1_inner">
             <command_interface name="effort" />
             <state_interface name="position" />
             <state_interface name="velocity" />
         </joint>
-        <joint name="lj_dg_5_2">
+
+        <joint name = "j_dg_4_inner">
             <command_interface name="effort" />
             <state_interface name="position" />
             <state_interface name="velocity" />
         </joint>
-        <joint name="lj_dg_5_3">
-            <command_interface name="effort" />
-            <state_interface name="position" />
-            <state_interface name="velocity" />
-        </joint>
-        <joint name="lj_dg_5_4">
-            <command_interface name="effort" />
-            <state_interface name="position" />
-            <state_interface name="velocity" />
-        </joint>
+
+
 
     </ros2_control>
 </robot>

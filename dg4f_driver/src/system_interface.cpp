@@ -26,7 +26,7 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include "dg5f_driver/system_interface.hpp"
+#include "dg4f_driver/system_interface.hpp"
 
 #include <algorithm>
 #include <chrono>
@@ -40,16 +40,7 @@
 #include "hardware_interface/types/hardware_interface_type_values.hpp"
 #include "rclcpp/rclcpp.hpp"
 
-namespace dg5f_driver {
-
-static const int leftMotorDir[20] = {1, 1, 1,  1, -1, 1, 1,  1, -1, 1,
-                                     1, 1, -1, 1, 1,  1, -1, 1, -1, -1};
-
-static const int rightMotorDir[20] = {1, 1, -1, -1,
-                                       -1, 1, 1,  1,
-                                      -1, 1, 1, 1,
-                                       -1, 1, 1, 1,
-                                       -1, -1, -1, -1};
+namespace dg4f_driver {
 
 hardware_interface::SystemInterface::CallbackReturn SystemInterface::on_init(
     const hardware_interface::HardwareInfo& info) {
@@ -62,9 +53,9 @@ hardware_interface::SystemInterface::CallbackReturn SystemInterface::on_init(
   velocities_.resize(info_.joints.size(), 0.0);
   efforts_.resize(info_.joints.size(), 0.0);
   effort_commands_.resize(info_.joints.size(), 0.0);
-  firmware_version_.resize(2,0);
-  current_limit_flag_.resize(info_.joints.size(), 0.0);
+  current_limit_flag_.resize(info_.joints.size(), 0);
   current_integral_.resize(info_.joints.size(), 0.0);
+
   for (const hardware_interface::ComponentInfo& joint : info_.joints) {
     if (joint.command_interfaces.size() != 1) {
       RCLCPP_ERROR(rclcpp::get_logger("SystemInterface"),
@@ -90,15 +81,15 @@ hardware_interface::SystemInterface::CallbackReturn SystemInterface::on_init(
   delto_port_ = 502;             // Default port
   fingertip_sensor_ = false;     // Default value
   io_ = false;                   // Default value
-  model_ = 0x5F12;               // Default model
+  model_ = 0x4F02;               // Default model
 
   // Safely get parameters with defaults
-  if (info.hardware_parameters.find("delto_ip") !=
+  if (info.hardware_parameters.find("ip") !=
       info.hardware_parameters.end()) {
     delto_ip_ = info.hardware_parameters.at("delto_ip");
   } else {
     RCLCPP_WARN(rclcpp::get_logger("SystemInterface"),
-                "Parameter 'delto_ip' not found, using default: %s",
+                "Parameter 'ip' not found, using default: %s",
                 delto_ip_.c_str());
   }
 
@@ -126,9 +117,11 @@ hardware_interface::SystemInterface::CallbackReturn SystemInterface::on_init(
     }
   } else {
     RCLCPP_WARN(rclcpp::get_logger("SystemInterface"),
-                "Parameter 'delto_port' not found, using default: %d", model_);
+                "Parameter 'delto_port' not found, using default: %d",
+                model_);
   }
-  RCLCPP_INFO(rclcpp::get_logger("SystemInterface"), "Delto model: %d", model_);
+  RCLCPP_INFO(rclcpp::get_logger("SystemInterface"),
+              "Delto model: %d", model_);
   // Check fingertip parameter
   if (info.hardware_parameters.find("fingertip_sensor") !=
       info.hardware_parameters.end()) {
@@ -149,50 +142,19 @@ hardware_interface::SystemInterface::CallbackReturn SystemInterface::on_init(
                 "Parameter 'hand_type' not found, using default: %s",
                 hand_type_.c_str());
   }
-  if (hand_type_ == "left") {
-    for (size_t i = 0; i < positions_.size(); ++i) {
-      motor_dir_[i] = leftMotorDir[i];
-    }
-  } else if (hand_type_ == "right") {
-    for (size_t i = 0; i < positions_.size(); ++i) {
-      motor_dir_[i] = rightMotorDir[i];
-    }
-  } else {
-    RCLCPP_ERROR(rclcpp::get_logger("SystemInterface"), "Invalid hand type: %s",
-                 hand_type_.c_str());
-    return CallbackReturn::ERROR;
-  }
 
-  // if (info_.hardware_parameters.find("firmware_version") !=
-  //     info.hardware_parameters.end()) {
-  //   firmware_version_ = stof(info.hardware_parameters.at("firmware_version"));
-  // } else {
-  //   RCLCPP_WARN(rclcpp::get_logger("SystemInterface"),
-  //               "Parameter 'firmware_version_' not found.");
-  // }
 
   delto_client_ = std::make_unique<DeltoTCP::Communication>(
       delto_ip_, delto_port_, model_, fingertip_sensor_, io_);
-  
-      try{
-  init();
-  firmware_version_ = delto_client_->GetFirmwareVersion();
-      }
-      catch(...)
-      {
-          RCLCPP_WARN(rclcpp::get_logger("SystemInterface"),
-                "Connect Failed.");
-                return CallbackReturn::FAILURE;
-      }
-      // m_init_thread_ = std::thread(&SystemInterface::init, this);
-  // m_init_thread_.detach();
+
+  m_init_thread_ = std::thread(&SystemInterface::init, this);
+  m_init_thread_.detach();
 
   return CallbackReturn::SUCCESS;
 }
 
 hardware_interface::SystemInterface::CallbackReturn
-SystemInterface::on_deactivate(
-    [[maybe_unused]] const rclcpp_lifecycle::State& previous_state) {
+SystemInterface::on_deactivate([[maybe_unused]] const rclcpp_lifecycle::State& previous_state) {
   if (delto_client_) {
     delto_client_->Disconnect();
   }
@@ -218,7 +180,8 @@ SystemInterface::export_state_interfaces() {
 
     // Add effort state interface
     state_interfaces.emplace_back(hardware_interface::StateInterface(
-        info_.joints[i].name, hardware_interface::HW_IF_EFFORT, &efforts_[i]));
+        info_.joints[i].name, hardware_interface::HW_IF_EFFORT,
+        &efforts_[i]));
 
     std::cout << "export_state_interfaces: " << info_.joints[i].name
               << " (position, velocity, effort)" << std::endl;
@@ -261,10 +224,12 @@ SystemInterface::on_shutdown(
   return CallbackReturn::SUCCESS;
 }
 
-void SystemInterface::init() { delto_client_->Connect(); }
+void SystemInterface::init() {
+   delto_client_->Connect();
+  }
 
 SystemInterface::return_type SystemInterface::read(
-    [[maybe_unused]] const rclcpp::Time& time,
+    [[maybe_unused]] const rclcpp::Time& time, 
     [[maybe_unused]] const rclcpp::Duration& period) {
   try {
     if (!delto_client_) {
@@ -303,7 +268,7 @@ SystemInterface::return_type SystemInterface::read(
     positions_ = received_data.joint;
     velocities_ = received_data.velocity;
     current_ = received_data.current;
-    efforts_ = current_;
+    efforts_ = current_; //delto_gripper_helper::ConvertEffort(current_);
 
     return return_type::OK;
   } catch (const std::exception& e) {
@@ -315,46 +280,42 @@ SystemInterface::return_type SystemInterface::read(
 SystemInterface::return_type SystemInterface::write(
     [[maybe_unused]] const rclcpp::Time& time,
     [[maybe_unused]] const rclcpp::Duration& period) {
+
   std::vector<double> filter_effort_commands(effort_commands_.size());
   std::vector<double> duty(effort_commands_.size());
   std::vector<int> int_duty(effort_commands_.size());
   std::vector<int> current_mA(effort_commands_.size());
 
+
   for (size_t i = 0; i < effort_commands_.size(); ++i) {
     current_mA[i] = static_cast<int>(current_[i]);
   }
   try {
-    filter_effort_commands = delto_gripper_helper::CurrentControl(
-        effort_commands_.size(), current_mA, effort_commands_,
-        current_limit_flag_, current_integral_);
+    filter_effort_commands = delto_gripper_helper::CurrentControl(effort_commands_.size(),
+    current_mA, effort_commands_, current_limit_flag_, current_integral_);
 
-    duty = delto_gripper_helper::ConvertDuty(effort_commands_.size(),
-                                             filter_effort_commands);
+  duty = delto_gripper_helper::ConvertDuty(effort_commands_.size(), filter_effort_commands);
 
-    for (size_t i = 0; i < effort_commands_.size(); ++i) {
+  for (size_t i = 0; i < effort_commands_.size(); ++i) {
+
       int_duty[i] = static_cast<int>(duty[i] * 10);
       int_duty[i] = std::clamp(int_duty[i], -1000, 1000);
 
-      if ((firmware_version_[0] >= 2 && firmware_version_[1]>=8) ||
-         firmware_version_[0] >2 ) {
-        int_duty[i] *= 1;
-      } else {
-        int_duty[i] *= motor_dir_[i];
-      }
-    }
-
-  } catch (const std::exception& e) {
-    RCLCPP_ERROR(rclcpp::get_logger("SystemInterface"), "write error: %s",
-                 e.what());
+  }
+} catch (const std::exception& e) {
+    RCLCPP_ERROR(rclcpp::get_logger("SystemInterface"), "write error: %s", e.what());
     return return_type::ERROR;
   }
 
+
   delto_client_->SendDuty(int_duty);
+
+
 
   return return_type::OK;
 }
-}  // namespace dg5f_driver
+}  // namespace dg4f_driver
 
 #include "pluginlib/class_list_macros.hpp"
-PLUGINLIB_EXPORT_CLASS(dg5f_driver::SystemInterface,
+PLUGINLIB_EXPORT_CLASS(dg4f_driver::SystemInterface,
                        hardware_interface::SystemInterface)

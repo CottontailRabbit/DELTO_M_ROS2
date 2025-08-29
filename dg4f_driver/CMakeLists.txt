@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(dg5f_driver)
+project(dg4f_driver)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -30,55 +30,61 @@ set_target_properties(DG_GRIPPER_HELPER PROPERTIES
   IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/lib/libdelto_gripper_helper.so
 )
 
-# dg5f_driver 라이브러리 정의
-add_library(dg5f_driver SHARED
+
+# dg4f_driver 라이브러리 정의
+add_library(dg4f_driver SHARED
   src/system_interface.cpp
 )
 
-target_include_directories(dg5f_driver PUBLIC
+target_include_directories(dg4f_driver PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
 )
 
 # 로컬 라이브러리 링크 
-target_link_libraries(dg5f_driver delto_tcp DG_GRIPPER_HELPER)
+target_link_libraries(dg4f_driver delto_tcp DG_GRIPPER_HELPER)
 
 # ROS2 의존성은 ament_target_dependencies로 처리
-ament_target_dependencies(dg5f_driver
+ament_target_dependencies(dg4f_driver
   rclcpp
   pluginlib
   hardware_interface
 )
 
 
-add_executable(dg5f_operator_driver src/dg5f_operator_driver.cpp)
-ament_target_dependencies(dg5f_operator_driver rclcpp trajectory_msgs sensor_msgs)
+add_executable(dg4f_operator_driver src/dg4f_operator_driver.cpp)
+ament_target_dependencies(dg4f_operator_driver rclcpp trajectory_msgs sensor_msgs)
 
 install(TARGETS 
-  dg5f_operator_driver
+  dg4f_operator_driver
   DESTINATION lib/${PROJECT_NAME})
+
+install(
+  FILES ${CMAKE_CURRENT_SOURCE_DIR}/lib/libdelto_gripper_helper.so
+  DESTINATION lib
+)
 
   install(
   PROGRAMS 
-  script/dg5f_left_test.py
-  script/dg5f_right_test.py
+  # script/dg4f_left_test.py
+  # script/dg4f_right_test.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
-  target_include_directories(dg5f_operator_driver PUBLIC
+  target_include_directories(dg4f_operator_driver PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
 )
 
 # install(
 #   PROGRAMS 
-#   script/dg5f_test.py
+#   script/dg4f_test.py
 #   DESTINATION lib/${PROJECT_NAME}
 # )
 
 # 설치 규칙
 install(
-  TARGETS dg5f_driver delto_tcp
+  TARGETS dg4f_driver delto_tcp
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
   RUNTIME DESTINATION bin
@@ -94,10 +100,10 @@ install(
   DESTINATION share/${PROJECT_NAME}
 )
 
-pluginlib_export_plugin_description_file(hardware_interface dg5f_driver.xml)
+pluginlib_export_plugin_description_file(hardware_interface dg4f_driver.xml)
 
 install(
-  FILES dg5f_driver.xml
+  FILES dg4f_driver.xml
   DESTINATION share/${PROJECT_NAME}
 )
 

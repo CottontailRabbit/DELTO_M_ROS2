@@ -1,0 +1,9 @@
+<library path="dg4f_driver">
+  <class name="dg4f_driver/SystemInterface"
+         type="dg4f_driver::SystemInterface"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>
+      A ROS2-control SystemInterface for DG4F. 
+    </description>
+  </class>
+</library>

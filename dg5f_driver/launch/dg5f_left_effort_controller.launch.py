@@ -91,7 +91,7 @@ def generate_launch_description():
 
     robot_controllers = PathJoinSubstitution(
         [FindPackageShare("dg5f_driver"), "config",
-         "dg5f_left_controller.yaml"]
+         "dg5f_left_pid_controller.yaml"]
     )
 
     # ROS2 Control Node
@@ -118,11 +118,19 @@ def generate_launch_description():
         output="screen",
     )
 
-    # Delto 5F Controller
-    delto_controller_spawner = Node(
+    # Spawn all individual PID controllers for each joint
+    pid_controllers = [
+        "lj_dg_1_1_pospid", "lj_dg_1_2_pospid", "lj_dg_1_3_pospid", "lj_dg_1_4_pospid",
+        "lj_dg_2_1_pospid", "lj_dg_2_2_pospid", "lj_dg_2_3_pospid", "lj_dg_2_4_pospid",
+        "lj_dg_3_1_pospid", "lj_dg_3_2_pospid", "lj_dg_3_3_pospid", "lj_dg_3_4_pospid",
+        "lj_dg_4_1_pospid", "lj_dg_4_2_pospid", "lj_dg_4_3_pospid", "lj_dg_4_4_pospid",
+        "lj_dg_5_1_pospid", "lj_dg_5_2_pospid", "lj_dg_5_3_pospid", "lj_dg_5_4_pospid",
+    ]
+
+    pid_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["dg5f_left_controller"],
+        arguments=pid_controllers,
         output="screen",
     )
 
@@ -131,7 +139,7 @@ def generate_launch_description():
         control_node,
         robot_state_pub_node,
         joint_state_broadcaster_spawner,
-        delto_controller_spawner
+        pid_controller_spawner
     ]
 
     return LaunchDescription(declared_arguments + nodes)

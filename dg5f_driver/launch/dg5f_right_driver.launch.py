@@ -57,6 +57,15 @@ def generate_launch_description():
 
     delto_port = LaunchConfiguration("delto_port")
 
+    # declared_arguments.append(
+    #     DeclareLaunchArgument(
+    #         "firmware_version",
+    #         description="firmware_version for gripper"
+    #     )
+    # )
+
+    # firmware_version = LaunchConfiguration("firmware_version")
+
     # Get paths to config files
     robot_description_content = Command(
         [
@@ -71,7 +80,10 @@ def generate_launch_description():
             delto_ip,
             " ",
             "delto_port:=",
-            delto_port
+            delto_port,
+            # " ",
+            # "firmware_version:=",
+            # firmware_version
         ]
     )
 
