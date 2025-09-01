@@ -25,6 +25,11 @@ ament_target_dependencies(delto_tcp
   rclcpp
 )
 
+add_library(DG_GRIPPER_HELPER SHARED IMPORTED)
+set_target_properties(DG_GRIPPER_HELPER PROPERTIES
+  IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/lib/libdelto_gripper_helper.so
+)
+
 # dg5f_driver 라이브러리 정의
 add_library(dg5f_driver SHARED
   src/system_interface.cpp
@@ -36,7 +41,7 @@ target_include_directories(dg5f_driver PUBLIC
 )
 
 # 로컬 라이브러리 링크 
-target_link_libraries(dg5f_driver delto_tcp)
+target_link_libraries(dg5f_driver delto_tcp DG_GRIPPER_HELPER)
 
 # ROS2 의존성은 ament_target_dependencies로 처리
 ament_target_dependencies(dg5f_driver

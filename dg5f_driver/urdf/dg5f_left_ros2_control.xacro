@@ -20,6 +20,7 @@
             <param name="delto_port">$(arg delto_port)</param>
             <param name="delto_model">24338</param>
             <param name="hand_type">left</param>
+            <!-- <param name="firmware_version">$(arg firmware_version)</param> -->
         </hardware>
 
         <!-- Finger 1 joints -->

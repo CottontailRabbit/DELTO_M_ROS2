@@ -18,8 +18,10 @@
             <plugin>dg5f_driver/SystemInterface</plugin>
             <param name="delto_ip">$(arg delto_ip)</param>
             <param name="delto_port">$(arg delto_port)</param>
+             <!-- <param name="firmware_version">$(arg firmware_version)</param> -->
             <param name="delto_model">24354</param>
             <param name="hand_type">right</param>
+           
         </hardware>
 
         <!-- Finger 1 joints -->

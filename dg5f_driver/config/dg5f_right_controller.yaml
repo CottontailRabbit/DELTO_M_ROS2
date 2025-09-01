@@ -38,105 +38,105 @@ dg5f_right_controller:
     action_monitor_rate: 500.0 # 20Hz에서 500Hz로 변경
     gains:
       rj_dg_1_1:
-        p: 150.0
-        i: 3.0
-        d: 5.0
-        i_clamp: 10.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
+        i_clamp: 0.0
       rj_dg_1_2:
-        p: 150.0
-        i: 3.0
-        d: 5.0
-        i_clamp: 10.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
+        i_clamp: 0.0
       rj_dg_1_3:
-        p: 150.0
-        i: 3.0
-        d: 5.0
-        i_clamp: 10.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
+        i_clamp: 0.0
       rj_dg_1_4:
-        p: 150.0
-        i: 3.0
-        d: 5.0
-        i_clamp: 10.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
+        i_clamp: 0.0
       rj_dg_2_1:
-        p: 150.0
-        i: 3.0
-        d: 5.0
-        i_clamp: 10.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
+        i_clamp: 0.0
       rj_dg_2_2:
-        p: 150.0
-        i: 3.0
-        d: 5.0
-        i_clamp: 10.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
+        i_clamp: 0.0
       rj_dg_2_3:
-        p: 150.0
-        i: 3.0
-        d: 5.0
-        i_clamp: 10.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
+        i_clamp: 0.0
       rj_dg_2_4:
-        p: 150.0
-        i: 3.0
-        d: 5.0
-        i_clamp: 10.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
+        i_clamp: 0.0
       rj_dg_3_1:
-        p: 150.0
-        i: 3.0
-        d: 5.0
-        i_clamp: 10.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
+        i_clamp: 0.0
       rj_dg_3_2:
-        p: 150.0
-        i: 3.0
-        d: 5.0
-        i_clamp: 10.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
+        i_clamp: 0.0
       rj_dg_3_3:
-        p: 150.0
-        i: 3.0
-        d: 5.0
-        i_clamp: 10.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
+        i_clamp: 0.0
       rj_dg_3_4:
-        p: 150.0
-        i: 3.0
-        d: 5.0
-        i_clamp: 10.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
+        i_clamp: 0.0
       rj_dg_4_1:
-        p: 150.0
-        i: 3.0
-        d: 5.0
-        i_clamp: 10.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
+        i_clamp: 0.0
       rj_dg_4_2:
-        p: 150.0
-        i: 3.0
-        d: 5.0
-        i_clamp: 10.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
+        i_clamp: 0.0
       rj_dg_4_3:
-        p: 150.0
-        i: 3.0
-        d: 5.0
-        i_clamp: 10.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
+        i_clamp: 0.0
       rj_dg_4_4:
-        p: 150.0
-        i: 3.0
-        d: 5.0
-        i_clamp: 10.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
+        i_clamp: 0.0
       rj_dg_5_1:
-        p: 150.0
-        i: 3.0
-        d: 5.0
-        i_clamp: 10.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
+        i_clamp: 0.0
       rj_dg_5_2:
-        p: 150.0
-        i: 3.0
-        d: 5.0
-        i_clamp: 10.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
+        i_clamp: 0.0
       rj_dg_5_3:
-        p: 150.0
-        i: 3.0
-        d: 5.0
-        i_clamp: 10.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
+        i_clamp: 0.0
       rj_dg_5_4:
-        p: 150.0
-        i: 3.0
-        d: 5.0
-        i_clamp: 10.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
+        i_clamp: 0.0
 
     allow_partial_joints_goal: True
     joints:

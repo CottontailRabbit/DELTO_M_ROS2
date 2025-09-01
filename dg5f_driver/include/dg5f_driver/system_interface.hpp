@@ -41,8 +41,9 @@
 #include "rclcpp_lifecycle/node_interfaces/lifecycle_node_interface.hpp"
 #include "rclcpp_lifecycle/state.hpp"
 
-// #include "dg3f_TCP.hpp"
+
 #include "delto_developer_TCP.hpp"
+#include "delto_gripper_helper.hpp"
 
 namespace delto_interface
 {
@@ -99,5 +100,9 @@ private:
   int delto_port_;
   bool fingertip_sensor_;
   bool io_;
+
+  std::vector<uint8_t> firmware_version_;
+  std::vector<int> current_limit_flag_;
+  std::vector<double> current_integral_;
 };
 }  // namespace dg3f_driver

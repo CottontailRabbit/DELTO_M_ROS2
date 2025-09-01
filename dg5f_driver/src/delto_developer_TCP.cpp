@@ -90,6 +90,31 @@ void Communication::Connect()
     return;
   }
 
+  std::array<uint8_t, 3> request;  // Length(2) + CMD(1)
+  
+  request[0] = 0x00;               // Length_h
+  request[1] = 0x03;               // Length_l
+  request[2] = 0x08;       // CMD
+
+  {
+    boost::system::error_code ec;
+    socket_.write_some(boost::asio::buffer(request), ec);
+    
+    if (ec) {
+      std::cerr << "Error sending request: " << ec.message() << std::endl;
+
+    }
+  }
+
+  std::vector<uint8_t> response(7); // A3 
+  
+  socket_.read_some(boost::asio::buffer(response));
+  firmware_version_ = {response[5], response[6]};
+
+  std::cout << "Firmware Version: "
+            << static_cast<int>(firmware_version_[0]) << "."
+            << static_cast<int>(firmware_version_[1]) << std::endl;
+
   std::cout << "Connected to Delto Gripper" << std::endl;
 }
 
@@ -122,6 +147,10 @@ bool Communication::ReadFullPacket(
   return bytes_read == static_cast<std::size_t>(expected_response_length_);
 }
 
+std::vector<uint8_t> Communication::GetFirmwareVersion()
+{
+  return firmware_version_;
+}
 
 DeltoReceivedData Communication::GetData()
 {
@@ -228,6 +257,7 @@ DeltoReceivedData Communication::GetData()
 
   return received_data;
 }
+
 
 void Communication::SendDuty(std::vector<int> & duty)
 {
