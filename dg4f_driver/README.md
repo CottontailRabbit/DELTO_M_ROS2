@@ -49,7 +49,7 @@ ros2 launch dg4f_driver dg4f_driver.launch.py
 ```
 
 
-## 🎛️ Controlling Delto Gripper-4F-RIGHT
+## 🎛️ Controlling Delto Gripper-4F
 
 ### 1. Loading Delto-Gripper-4F controller
 
