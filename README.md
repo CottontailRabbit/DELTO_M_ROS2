@@ -1,11 +1,12 @@
+<p align="right">
 <img src="/dg_description/image/title.svg"/>
-
-<div style="display: flex; gap: 5px; align-items: center;">
-  <img src="/dg_description/image/dg5f_1.png" alt="dg5f" width="300px"/>
-  <img src="https://tesollo.com/wp-content/uploads/2025/06/DG-4F-1-1.webp" height="230px"/>
-  <img src="https://tesollo.com/wp-content/uploads/2024/12/DG-3F-5-1.webp" width="200px"/>
-  <img src="https://tesollo.com/wp-content/uploads/2025/02/3F-CES.gif" width="200px"/>
-</div>
+</p>
+<p align="center">
+  <img src="https://tesollo.com/wp-content/uploads/2025/06/DG-5F-6-1.webp" alt="dg5f" width="250px"/>
+  <img src="https://tesollo.com/wp-content/uploads/2025/06/DG-4F-1-1.webp" height="180px"/>
+  <img src="https://tesollo.com/wp-content/uploads/2024/12/DG-3F-5-1.webp" width="150px"/>
+  <img src="https://tesollo.com/wp-content/uploads/2025/02/3F-CES.gif" width="150px"/>
+</p>
 
 
 The DELTO_M_ROS2 Repository is a comprehensive ROS 2 package designed to support the Delto Gripper-M. This project includes simulations, control interfaces, and visualization tools for the gripper, enabling developers to efficiently develop and test robotic applications.
