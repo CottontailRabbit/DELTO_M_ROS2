@@ -81,7 +81,7 @@ The **`delto_gripper_helper`** namespace provides utility functions for converti
 ---
 
 
-
+```
  ┌─────────────────┐
  │  Target Torque  │
  │      [Nm]       │
@@ -109,3 +109,6 @@ The **`delto_gripper_helper`** namespace provides utility functions for converti
  ┌─────────────────┐               │
  │   Motor Driver  │───────────────┘
  └─────────────────┘
+
+```
+
