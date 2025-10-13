@@ -2,7 +2,7 @@
 
 ## 📌 Overview
 
-It provides detailed Gazebo simulations of the Delto Gripper-3F-M using [ROS 2 control joint trajectory controllers](https://control.ros.org/rolling/index).
+It provides detailed Gazebo simulations of the Delto Gripper-4F using [ROS 2 control joint trajectory controllers](https://control.ros.org/rolling/index).
 
 
 ## 📦 How to Install Dependencies for a Single ROS2 Package (`dg4f_gz`) Using rosdep
@@ -24,7 +24,7 @@ rosdep update
 
 > ⚠️ **Important:** Do **not** use `sudo` when running `rosdep update`.
 
-### 3️⃣ Install dependencies only for the specific package (`dg3f_gz`)
+### 3️⃣ Install dependencies only for the specific package (`dg4f_gz`)
 
 ```bash
 rosdep install --from-paths src/DELTO_M_ROS2/dg4f_gz --ignore-src -r -y
@@ -42,7 +42,7 @@ rosdep install --from-paths src/DELTO_M_ROS2/dg4f_gz --ignore-src -r -y
 After installing dependencies, confirm the package builds successfully:
 
 ```bash
-colcon build --packages-select dg3f_gz
+colcon build --packages-select dg4f_gz
 ```
 
 This command builds only the `dg4f_gz` package, ensuring it compiles correctly.
@@ -79,7 +79,7 @@ ros2 run dg4f_gz dg4f_gz_test.py
 
 Execute the C++ test node:
 ```bash
-ros2 run dg4f_gz dg3f_gz_test_cpp
+ros2 run dg4f_gz dg4f_gz_test_cpp
 ```
 
 ## 🤝 Contributing
