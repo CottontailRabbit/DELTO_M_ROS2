@@ -61,6 +61,7 @@ hardware_interface::SystemInterface::CallbackReturn SystemInterface::on_init(
   positions_.resize(info_.joints.size(), 0.0);
   velocities_.resize(info_.joints.size(), 0.0);
   efforts_.resize(info_.joints.size(), 0.0);
+  temperature_.resize(info_.joints.size(), 0.0);
   effort_commands_.resize(info_.joints.size(), 0.0);
   firmware_version_.resize(2,0);
   current_limit_flag_.resize(info_.joints.size(), 0.0);
@@ -205,7 +206,7 @@ std::vector<hardware_interface::StateInterface>
 SystemInterface::export_state_interfaces() {
   std::vector<hardware_interface::StateInterface> state_interfaces;
   state_interfaces.reserve(info_.joints.size() *
-                           3);  // position, velocity, effort
+                           4);  // position, velocity, effort, temperature
 
   for (size_t i = 0; i < info_.joints.size(); i++) {
     state_interfaces.emplace_back(hardware_interface::StateInterface(
@@ -219,9 +220,14 @@ SystemInterface::export_state_interfaces() {
     // Add effort state interface
     state_interfaces.emplace_back(hardware_interface::StateInterface(
         info_.joints[i].name, hardware_interface::HW_IF_EFFORT, &efforts_[i]));
-
+        
+    // Add temperature state interface
+    state_interfaces.emplace_back(hardware_interface::StateInterface(
+        info_.joints[i].name, delto_interface::HW_IF_TEMPERATURE,
+        &temperature_[i]));
+        
     std::cout << "export_state_interfaces: " << info_.joints[i].name
-              << " (position, velocity, effort)" << std::endl;
+              << " (position, velocity, effort, temperature)" << std::endl;
   }
 
   return state_interfaces;
@@ -304,6 +310,7 @@ SystemInterface::return_type SystemInterface::read(
     velocities_ = received_data.velocity;
     current_ = received_data.current;
     efforts_ = current_;
+    temperature_ = received_data.temperature;
 
     return return_type::OK;
   } catch (const std::exception& e) {
