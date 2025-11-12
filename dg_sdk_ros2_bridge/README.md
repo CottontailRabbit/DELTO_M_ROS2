@@ -1,4 +1,19 @@
 # DG SDK ROS2 Bridge
+## Compatibility Notice ⚠️
+
+> **Important:**  
+> - The current SDK included in this repository (`libDGSDK.so v1.4.0`) is **not compatible** with firmware **v3.6 or later**.  
+> - For systems running firmware v3.6 and above, you must update to **DG SDK v1.6.0 or newer** to ensure stable operation.  
+> - You can obtain the updated SDK library (`libDGSDK_160.so`) from Tesollo’s official distribution or USB package, then **replace** the existing file in:
+>   ```
+>   dg_sdk_ros2_bridge/libs/libDGSDK.so
+>   ```
+>   (Either rename `libDGSDK_160.so` → `libDGSDK.so`, or overwrite the existing one directly, then rebuild your workspace.)
+>
+> **Architecture Support:**  
+> The DG SDK currently supports **x86_64 architecture only**.  
+> Running on ARM64 (aarch64, e.g., Jetson, Raspberry Pi) is **not supported** and may lead to build or runtime errors.
+
 
 ## Overview
 The DG SDK ROS2 Bridge provides a ROS2 interface for the DELTO gripper, allowing Python developers to control the gripper without needing C++ knowledge. This bridge wraps the DG SDK (v1.4.0) and exposes its functionality through ROS2 services and messages.
