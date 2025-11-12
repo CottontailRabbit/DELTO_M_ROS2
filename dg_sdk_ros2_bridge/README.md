@@ -10,12 +10,12 @@
 >   | **B model** | v3.6 or later | **DG SDK v1.6.0+** | Motor direction were revised starting from fimware v3.6.|
 >   | **M model** | v2.8 or later | **DG SDK v1.6.0+** | Motor direction were revised starting from firmware v2.8. |
 >
-> - You can obtain the updated SDK library (`libDGSDK_160.so`) from Tesollo’s official USB package or distribution.  
+> - You can obtain the updated SDK library (`libDGSDK.so`) from Tesollo’s official USB package or distribution.  
 >   Replace the existing file in:
 >   ```
 >   dg_sdk_ros2_bridge/libs/libDGSDK.so
 >   ```
->   (Either rename `libDGSDK_160.so` → `libDGSDK.so`, or overwrite directly and rebuild your workspace.)
+>   (Either rename  `libDGSDK_140.so` or `libDGSDK_160.so` → `libDGSDK.so`, or overwrite directly and rebuild your workspace.)
 
 > **Architecture Support:**  
 > - The DG SDK currently supports **x86_64 architecture only**.  
