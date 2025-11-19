@@ -73,7 +73,7 @@ def generate_launch_description():
             " ",
             PathJoinSubstitution(
                 [FindPackageShare("dg5f_driver"), "urdf",
-                 "dg5f_left_ros2_control.xacro"]
+                 "dg5f_right_ros2_control.xacro"]
             ),
             " ",
             "delto_ip:=",
