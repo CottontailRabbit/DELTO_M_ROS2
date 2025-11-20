@@ -38,75 +38,75 @@ dg3f_m_controller:
     action_monitor_rate: 500.0 # 20Hz에서 500Hz로 변경
     gains:
       j_dg_1_1:
-        p: 150.0
-        i: 3.0
-        d: 5.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
         i_clamp: 10.0
         ff_velocity_scale: 0.0
       j_dg_1_2:
-        p: 150.0
-        i: 3.0
-        d: 5.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
         i_clamp: 10.0
         ff_velocity_scale: 0.0
       j_dg_1_3:
-        p: 150.0
-        i: 3.0
-        d: 5.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
         i_clamp: 10.0
         ff_velocity_scale: 0.0
       j_dg_1_4:
-        p: 150.0
-        i: 3.0
-        d: 5.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
         i_clamp: 10.0
         ff_velocity_scale: 0.0
       j_dg_2_1:
-        p: 150.0
-        i: 3.0
-        d: 5.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
         i_clamp: 10.0
         ff_velocity_scale: 0.0
       j_dg_2_2:
-        p: 150.0
-        i: 3.0
-        d: 5.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
         i_clamp: 10.0
         ff_velocity_scale: 0.0
       j_dg_2_3:
-        p: 150.0
-        i: 3.0
-        d: 5.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
         i_clamp: 10.0
         ff_velocity_scale: 0.0
       j_dg_2_4:
-        p: 150.0
-        i: 3.0
-        d: 5.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
         i_clamp: 10.0
         ff_velocity_scale: 0.0
       j_dg_3_1:
-        p: 150.0
-        i: 3.0
-        d: 5.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
         i_clamp: 10.0
         ff_velocity_scale: 0.0
       j_dg_3_2:
-        p: 150.0
-        i: 3.0
-        d: 5.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
         i_clamp: 10.0
         ff_velocity_scale: 0.0
       j_dg_3_3:
-        p: 150.0
-        i: 3.0
-        d: 5.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
         i_clamp: 10.0
         ff_velocity_scale: 0.0
       j_dg_3_4:
-        p: 150.0
-        i: 3.0
-        d: 5.0
+        p: 1.0
+        i: 0.0
+        d: 0.0
         i_clamp: 10.0
         ff_velocity_scale: 0.0
 

@@ -41,11 +41,12 @@ int Communication::GetMotorCount(uint16_t model)
     case 0x4F02:
       return 18;
     case 0x5F02:
+    case 0x5F12:  
+    case 0x5F22:  
       return 20;
     default:
-      std::cerr << "Unknown model type: " << std::hex << model << std::endl;
+      std::cerr << "Unknown model type: 0x" << std::hex << model << std::dec << std::endl;
       return 12;
-      // throw std::invalid_argument("Unknown model type");
   }
 }
 
@@ -70,8 +71,8 @@ Communication::Communication(
   socket_(io_context_),
   motor_count_(GetMotorCount(model)),
   byte_per_motor_(GetBytePerMotor(fingertip_sensor, io)),
-  total_packet_size_(HEADER_SIZE + motor_count_ * byte_per_motor_),
-  expected_response_length_(99) {}
+  total_duty_packet_size_(HEADER_SIZE + motor_count_ * byte_per_motor_),
+  expected_response_length_(HEADER_SIZE + motor_count_ * byte_per_motor_) {}
 
 Communication::~Communication() {socket_.close();}
 
@@ -89,6 +90,31 @@ void Communication::Connect()
     return;
   }
 
+  std::array<uint8_t, 3> request;  // Length(2) + CMD(1)
+  
+  request[0] = 0x00;               // Length_h
+  request[1] = 0x03;               // Length_l
+  request[2] = 0x08;       // CMD
+
+  {
+    boost::system::error_code ec;
+    socket_.write_some(boost::asio::buffer(request), ec);
+    
+    if (ec) {
+      std::cerr << "Error sending request: " << ec.message() << std::endl;
+
+    }
+  }
+
+  std::vector<uint8_t> response(7); // A3 
+  
+  socket_.read_some(boost::asio::buffer(response));
+  firmware_version_ = {response[5], response[6]};
+
+  std::cout << "Firmware Version: "
+            << static_cast<int>(firmware_version_[0]) << "."
+            << static_cast<int>(firmware_version_[1]) << std::endl;
+
   std::cout << "Connected to Delto Gripper" << std::endl;
 }
 
@@ -100,14 +126,16 @@ void Communication::Disconnect()
 
 bool Communication::ReadFullPacket(
   boost::asio::ip::tcp::socket & socket,
-  std::array<uint8_t, 99> & buffer)
+  std::vector<uint8_t> & buffer)
 {
   boost::system::error_code ec;
 
+  buffer.resize(expected_response_length_);
+
   std::size_t bytes_read = boost::asio::read(
     socket,
-    boost::asio::buffer(buffer.data(), total_packet_size_),
-    boost::asio::transfer_exactly(total_packet_size_),
+    boost::asio::buffer(buffer.data(), expected_response_length_),
+    boost::asio::transfer_exactly(expected_response_length_),
     ec
   );
 
@@ -119,37 +147,50 @@ bool Communication::ReadFullPacket(
   return bytes_read == static_cast<std::size_t>(expected_response_length_);
 }
 
+std::vector<uint8_t> Communication::GetFirmwareVersion()
+{
+  return firmware_version_;
+}
+
 DeltoReceivedData Communication::GetData()
 {
+
   std::array<uint8_t, 7> request;  // Length(2) + CMD(1)
   
   request[0] = 0x00;               // Length_h
   request[1] = 0x07;               // Length_l
-  request[2] = GET_DATA_CMD;
-  request[3] = 0x01;
-  request[4] = 0x02;
-  request[5] = 0x03;
-  request[6] = 0x04;
+  request[2] = GET_DATA_CMD;       // CMD
+
+  request[3] = 0x01;               // ID
+  request[4] = 0x02;               // ID
+  request[5] = 0x03;               // ID
+  request[6] = 0x04;               // ID
 
   {
     boost::system::error_code ec;
     socket_.write_some(boost::asio::buffer(request), ec);
+    
     if (ec) {
       std::cerr << "Error sending request: " << ec.message() << std::endl;
       return DeltoReceivedData{};
     }
   }
 
-  std::array<uint8_t, 99> response;
+  std::vector<uint8_t> response; // A3 
+  response.resize(expected_response_length_);
+
   if (!ReadFullPacket(socket_, response)) {
     std::cerr << "Failed to read full packet" << std::endl;
     return DeltoReceivedData{};
   }
 
+
   uint16_t length = CombineMsg(response[0], response[1]);
+
   uint8_t cmd = response[2];
 
   if (cmd != request[2] || static_cast<int>(response.size()) != expected_response_length_) {
+    
     std::cerr << "expected_response_length_: " << expected_response_length_ << std::endl;
     std::cerr << "Invalid header (CMD or LENGTH mismatch)" << std::endl;
     std::cerr << "Request bytes: ";
@@ -160,10 +201,12 @@ DeltoReceivedData Communication::GetData()
     for (const auto & byte : response) {
       std::cerr << "0x" << std::hex << static_cast<int>(byte) << " ";
     }
+
     // std::cerr << std::dec << std::endl;
     std::cerr << "Received header: CMD = 0x" << std::hex
               << static_cast<int>(cmd) << ", Length = 0x"
               << static_cast<int>(length) << std::dec << std::endl;
+
     return DeltoReceivedData{};
   }
 
@@ -172,8 +215,7 @@ DeltoReceivedData Communication::GetData()
   received_data.joint.resize(motor_count_);
   received_data.current.resize(motor_count_);
 
-  if (model_ == 0x3F02 || model_ == 0x4F02 || model_ == 0x5F12 ||
-    model_ == 0x5F22)
+  if (model_ == 0x3F02 || model_ == 0x4F02 || model_ == 0x5F12 || model_ == 0x5F22)
   {
     received_data.velocity.resize(motor_count_);
     received_data.temperature.resize(motor_count_);
@@ -193,16 +235,17 @@ DeltoReceivedData Communication::GetData()
     int16_t raw_position = CombineMsg(posL, posH);
     int16_t raw_current = CombineMsg(curL, curH);
 
-    // 위치는 rad로 환산 (조건에 따라 스케일 변경)
+    // 위치는 rad로 환산 
     double position_rad = raw_position * POSITION_SCALE;
 
     received_data.joint[i] = position_rad;
     received_data.current[i] = raw_current * CURRENT_SCALE;
 
     // std::cout << static_cast<int>(model_) << std::endl;
-    if (model_ == 0x3F02 || model_ == 0x4F02 || model_ == 0x5F12) {
+    if (model_ == 0x3F02 || model_ == 0x4F02 || model_ == 0x5F12 || model_ ==0x5F22) {
       uint8_t tempL = response[base + 5];
       uint8_t tempH = response[base + 6];
+
       int16_t raw_temperature = CombineMsg(tempL, tempH);
       received_data.temperature[i] = raw_temperature * 0.1;
 
@@ -213,6 +256,7 @@ DeltoReceivedData Communication::GetData()
 
   return received_data;
 }
+
 
 void Communication::SendDuty(std::vector<int> & duty)
 {

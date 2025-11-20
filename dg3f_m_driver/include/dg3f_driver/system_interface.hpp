@@ -27,6 +27,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #pragma once
+#include <atomic>
 #include <memory>
 #include <string>
 #include <vector>
@@ -43,6 +44,7 @@
 
 // #include "dg3f_TCP.hpp"
 #include "delto_developer_TCP.hpp"
+#include "delto_gripper_helper.hpp"
 
 namespace delto_interface
 {
@@ -80,7 +82,7 @@ public:
   // CallbackReturn read() override;
 
 private:
-  void init();
+  void onDisconnectCallback();  // Disconnect callback function
   std::unique_ptr<DeltoTCP::Communication> delto_client_;
 
   std::vector<double> positions_;
@@ -90,12 +92,22 @@ private:
   std::vector<double> current_;
 
   std::vector<double> effort_commands_;
-  std::thread m_init_thread_;
+
+  // Current control variables
+  std::vector<int> current_limit_flag_;
+  std::vector<double> current_integral_;
+  
+  // Connection status
+  double connection_status_;  // 1.0 = connected, 0.0 = disconnected
+  std::atomic<bool> is_connected_;
 
   std::string delto_ip_;
   int16_t model_;
   int delto_port_;
   bool fingertip_sensor_;
   bool io_;
+
+  std::vector<uint8_t> firmware_version_;
+
 };
 }  // namespace dg3f_driver

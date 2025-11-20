@@ -35,13 +35,13 @@
 #include <string>
 #include <vector>
 
-class DeltoReceivedData {
- public:
+struct DeltoReceivedData {
   std::vector<double> joint;        // radian
   std::vector<double> current;      // A
   std::vector<double> temperature;  // Celsius
   std::vector<double> velocity;     // rad/s
 };
+
 
 using boost::asio::ip::tcp;
 namespace asio = boost::asio;
@@ -57,9 +57,11 @@ class Communication {
   void Connect();
   void Disconnect();
   DeltoReceivedData GetData();
+  // DeltoVersion GetVersion();
   void SendDuty(std::vector<int>& duty);
   bool ReadFullPacket(boost::asio::ip::tcp::socket& socket,
-                      std::array<uint8_t, 99>& buffer);
+                      std::vector<uint8_t>& buffer);
+std::vector<uint8_t> GetFirmwareVersion();
 
  private:
   std::string ip_;
@@ -67,14 +69,16 @@ class Communication {
   int16_t model_;
   bool fingertip_sensor_;
   bool io_;
+  // double firmware_version_;
   asio::io_context io_context_;
   tcp::socket socket_;
-
+  std::vector<uint8_t> firmware_version_;
       // ID + PosL + PosH + CurL + CurH + TempL + TempH + Vel +
       // other(fingertip_sensor, io)
+
   const int motor_count_;
   const int byte_per_motor_;
-  const int total_packet_size_;  // 전체 패킷 크기
+  const int total_duty_packet_size_;  // 전체 패킷 크기
   const int16_t expected_response_length_;  // 예상되는 패킷 길이 
 
   static constexpr uint8_t GET_DATA_CMD = 0x01;
@@ -82,7 +86,7 @@ class Communication {
 
   static constexpr std::size_t HEADER_SIZE = 3;  // Length(2) + CMD(1)
   static constexpr double POSITION_SCALE = (M_PI / 1800.0);
-  static constexpr double CURRENT_SCALE = 1000.0;
+  static constexpr double CURRENT_SCALE = 1;
   static constexpr double VELOCITY_SCALE = (M_PI / 1800.0);
   
   int GetBytePerMotor (bool fingertip_sensor, bool io);
