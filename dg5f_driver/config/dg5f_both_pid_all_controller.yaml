@@ -1,0 +1,165 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 400
+
+    # Broadcasters
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+    # DG5F right gripper controller
+    rj_dg_pospid: { type: pid_controller/PidController }
+    # DG5F left gripper controller
+    lj_dg_pospid: { type: pid_controller/PidController }
+
+# ============================================================================
+# Joint State Broadcaster (all joints)
+# ============================================================================
+joint_state_broadcaster:
+  ros__parameters:
+    update_rate: 200
+    joints:
+      # DG5F right joints
+      - rj_dg_1_1
+      - rj_dg_1_2
+      - rj_dg_1_3
+      - rj_dg_1_4
+      - rj_dg_2_1
+      - rj_dg_2_2
+      - rj_dg_2_3
+      - rj_dg_2_4
+      - rj_dg_3_1
+      - rj_dg_3_2
+      - rj_dg_3_3
+      - rj_dg_3_4
+      - rj_dg_4_1
+      - rj_dg_4_2
+      - rj_dg_4_3
+      - rj_dg_4_4
+      - rj_dg_5_1
+      - rj_dg_5_2
+      - rj_dg_5_3
+      - rj_dg_5_4
+      # DG5F left joints
+      - lj_dg_1_1
+      - lj_dg_1_2
+      - lj_dg_1_3
+      - lj_dg_1_4
+      - lj_dg_2_1
+      - lj_dg_2_2
+      - lj_dg_2_3
+      - lj_dg_2_4
+      - lj_dg_3_1
+      - lj_dg_3_2
+      - lj_dg_3_3
+      - lj_dg_3_4
+      - lj_dg_4_1
+      - lj_dg_4_2
+      - lj_dg_4_3
+      - lj_dg_4_4
+      - lj_dg_5_1
+      - lj_dg_5_2
+      - lj_dg_5_3
+      - lj_dg_5_4
+
+# ============================================================================
+# DG5F Right Gripper  Controller
+# ============================================================================
+rj_dg_pospid:
+  ros__parameters:
+    dof_names:
+      [
+        rj_dg_1_1,
+        rj_dg_1_2,
+        rj_dg_1_3,
+        rj_dg_1_4,
+        rj_dg_2_1,
+        rj_dg_2_2,
+        rj_dg_2_3,
+        rj_dg_2_4,
+        rj_dg_3_1,
+        rj_dg_3_2,
+        rj_dg_3_3,
+        rj_dg_3_4,
+        rj_dg_4_1,
+        rj_dg_4_2,
+        rj_dg_4_3,
+        rj_dg_4_4,
+        rj_dg_5_1,
+        rj_dg_5_2,
+        rj_dg_5_3,
+        rj_dg_5_4,
+      ]
+    command_interface: effort
+    reference_and_state_interfaces: ["position"]
+    gains:
+      rj_dg_1_1: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      rj_dg_1_2: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      rj_dg_1_3: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      rj_dg_1_4: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      rj_dg_2_1: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      rj_dg_2_2: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      rj_dg_2_3: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      rj_dg_2_4: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      rj_dg_3_1: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      rj_dg_3_2: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      rj_dg_3_3: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      rj_dg_3_4: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      rj_dg_4_1: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      rj_dg_4_2: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      rj_dg_4_3: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      rj_dg_4_4: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      rj_dg_5_1: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      rj_dg_5_2: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      rj_dg_5_3: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      rj_dg_5_4: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+
+# ============================================================================
+# DG5F Left Gripper Joint Trajectory Controller
+# ============================================================================
+lj_dg_pospid:
+  ros__parameters:
+    dof_names:
+      [
+        "lj_dg_1_1",
+        "lj_dg_1_2",
+        "lj_dg_1_3",
+        "lj_dg_1_4",
+        "lj_dg_2_1",
+        "lj_dg_2_2",
+        "lj_dg_2_3",
+        "lj_dg_2_4",
+        "lj_dg_3_1",
+        "lj_dg_3_2",
+        "lj_dg_3_3",
+        "lj_dg_3_4",
+        "lj_dg_4_1",
+        "lj_dg_4_2",
+        "lj_dg_4_3",
+        "lj_dg_4_4",
+        "lj_dg_5_1",
+        "lj_dg_5_2",
+        "lj_dg_5_3",
+        "lj_dg_5_4",
+      ]
+    command_interface: effort
+    reference_and_state_interfaces: ["position"]
+    gains:
+      lj_dg_1_1: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      lj_dg_1_2: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      lj_dg_1_3: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      lj_dg_1_4: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      lj_dg_2_1: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      lj_dg_2_2: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      lj_dg_2_3: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      lj_dg_2_4: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      lj_dg_3_1: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      lj_dg_3_2: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      lj_dg_3_3: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      lj_dg_3_4: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      lj_dg_4_1: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      lj_dg_4_2: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      lj_dg_4_3: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      lj_dg_4_4: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      lj_dg_5_1: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      lj_dg_5_2: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      lj_dg_5_3: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      lj_dg_5_4: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
