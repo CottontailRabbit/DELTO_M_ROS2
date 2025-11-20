@@ -10,7 +10,7 @@ controller_manager:
       type: joint_state_broadcaster/JointStateBroadcaster
 
 # ------------- 각 조인트별 PI 게인 -------------
-lj_dg_pospid:
+rj_dg_pospid:
   ros__parameters:
     dof_names:
       [
