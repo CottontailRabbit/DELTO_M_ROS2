@@ -26,11 +26,11 @@ __pycache__/
 
 # C/C++ compiled files
 *.o
-*.so
+# *.so
 *.a
 *.out
 *.obj
-*.lib
+# *.lib
 *.dll
 *.exe
 
