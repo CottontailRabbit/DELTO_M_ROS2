@@ -53,7 +53,7 @@ The hardware interface provides ROS2 services for runtime configuration:
 
 **Example:**
 ```bash
-ros2 service call /dg5f_left/set_ft_sensor_offset std_srvs/srv/Trigger
+ros2 service call /dg5f_right/delto_hardware_interface_node/set_ft_sensor_offset
 ```
 
 ### GPIO Services
