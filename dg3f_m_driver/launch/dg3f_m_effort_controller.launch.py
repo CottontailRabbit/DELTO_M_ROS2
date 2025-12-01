@@ -26,18 +26,30 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+"""
+DG3F-M Effort Controller Launch File
+
+This launch file starts the DG3F-M gripper with JointGroupEffortController,
+which accepts direct effort commands (no position feedback loop).
+
+Controller Type: effort_controllers/JointGroupEffortController
+Input: Direct effort values for each joint
+Topic: /<namespace>/effort_controller/commands
+"""
 
 from launch import LaunchDescription
 from launch.substitutions import (
     Command, FindExecutable, LaunchConfiguration, PathJoinSubstitution
 )
 from launch.actions import DeclareLaunchArgument
-from launch.conditions import IfCondition, UnlessCondition
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
+    # Namespace for this driver
+    ns = "dg3f_m"
+
     # Declare arguments
     declared_arguments = []
 
@@ -48,6 +60,7 @@ def generate_launch_description():
             description="IP address for gripper"
         )
     )
+    delto_ip = LaunchConfiguration("delto_ip")
 
     declared_arguments.append(
         DeclareLaunchArgument(
@@ -56,26 +69,24 @@ def generate_launch_description():
             description="Port for gripper"
         )
     )
+    delto_port = LaunchConfiguration("delto_port")
 
     declared_arguments.append(
         DeclareLaunchArgument(
             "fingertip_sensor",
             default_value="false",
-            description="Enable fingertip F/T sensor"
+            description="Enable fingertip force/torque sensors"
         )
     )
+    fingertip_sensor = LaunchConfiguration("fingertip_sensor")
 
     declared_arguments.append(
         DeclareLaunchArgument(
             "io",
             default_value="false",
-            description="Enable GPIO (not supported on DG3F-M)"
+            description="Enable IO interface"
         )
     )
-
-    delto_ip = LaunchConfiguration("delto_ip")
-    delto_port = LaunchConfiguration("delto_port")
-    fingertip_sensor = LaunchConfiguration("fingertip_sensor")
     io = LaunchConfiguration("io")
 
     # Get paths to config files
@@ -87,10 +98,18 @@ def generate_launch_description():
                 [FindPackageShare("dg3f_m_driver"), "urdf",
                  "dg3f_m_ros2_control.xacro"]
             ),
-            " ", "delto_ip:=", delto_ip,
-            " ", "delto_port:=", delto_port,
-            " ", "fingertip_sensor:=", fingertip_sensor,
-            " ", "io:=", io,
+            " ",
+            "delto_ip:=",
+            delto_ip,
+            " ",
+            "delto_port:=",
+            delto_port,
+            " ",
+            "fingertip_sensor:=",
+            fingertip_sensor,
+            " ",
+            "io:=",
+            io,
         ]
     )
 
@@ -98,48 +117,26 @@ def generate_launch_description():
 
     robot_controllers = PathJoinSubstitution(
         [FindPackageShare("dg3f_m_driver"), "config",
-         "dg3f_m_controller.yaml"]
+         "dg3f_m_effort_controller.yaml"]
     )
 
-    ft_broadcaster_config = PathJoinSubstitution(
-        [FindPackageShare("dg3f_m_driver"), "config",
-         "dg3f_m_ft_broadcaster.yaml"]
-    )
-
-    # Namespace for this driver
-    ns = "dg3f_m"
-
-    # ROS2 Control Node (without FT broadcaster)
+    # ROS2 Control Node
     control_node = Node(
+        namespace=ns,
         package="controller_manager",
         executable="ros2_control_node",
-        namespace=ns,
         parameters=[robot_controllers],
         remappings=[
             ("~/robot_description", "/" + ns + "/robot_description"),
         ],
         output="screen",
-        condition=UnlessCondition(fingertip_sensor),
-    )
-
-    # ROS2 Control Node with FT broadcaster (when fingertip_sensor is enabled)
-    control_node_with_ft = Node(
-        package="controller_manager",
-        executable="ros2_control_node",
-        namespace=ns,
-        parameters=[robot_controllers, ft_broadcaster_config],
-        remappings=[
-            ("~/robot_description", "/" + ns + "/robot_description"),
-        ],
-        output="screen",
-        condition=IfCondition(fingertip_sensor),
     )
 
     # Robot State Publisher
     robot_state_pub_node = Node(
+        namespace=ns,
         package="robot_state_publisher",
         executable="robot_state_publisher",
-        namespace=ns,
         output="screen",
         parameters=[robot_description],
     )
@@ -148,53 +145,30 @@ def generate_launch_description():
     joint_state_broadcaster_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["joint_state_broadcaster", "-c", "/" + ns + "/controller_manager"],
+        arguments=[
+            "joint_state_broadcaster",
+            "-c", "/" + ns + "/controller_manager"
+        ],
         output="screen",
     )
 
-    # Delto 3F-M Controller
-    delto_controller_spawner = Node(
+    # Effort Controller (직접 effort 입력)
+    effort_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["dg3f_m_controller", "-c", "/" + ns + "/controller_manager"],
+        arguments=[
+            "effort_controller",
+            "-c", "/" + ns + "/controller_manager"
+        ],
         output="screen",
-    )
-
-    # Fingertip F/T sensor broadcasters (conditional)
-    fingertip_1_broadcaster_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["fingertip_1_broadcaster", "-c", "/" + ns + "/controller_manager"],
-        output="screen",
-        condition=IfCondition(fingertip_sensor),
-    )
-
-    fingertip_2_broadcaster_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["fingertip_2_broadcaster", "-c", "/" + ns + "/controller_manager"],
-        output="screen",
-        condition=IfCondition(fingertip_sensor),
-    )
-
-    fingertip_3_broadcaster_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["fingertip_3_broadcaster", "-c", "/" + ns + "/controller_manager"],
-        output="screen",
-        condition=IfCondition(fingertip_sensor),
     )
 
     # List all nodes to start
     nodes = [
         control_node,
-        control_node_with_ft,
         robot_state_pub_node,
         joint_state_broadcaster_spawner,
-        delto_controller_spawner,
-        fingertip_1_broadcaster_spawner,
-        fingertip_2_broadcaster_spawner,
-        fingertip_3_broadcaster_spawner,
+        effort_controller_spawner
     ]
 
     return LaunchDescription(declared_arguments + nodes)

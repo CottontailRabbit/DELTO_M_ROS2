@@ -35,6 +35,9 @@ from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
+    # Namespace for this driver
+    ns = "dg3f_m"
+
     # Declare arguments
     declared_arguments = []
 
@@ -57,6 +60,24 @@ def generate_launch_description():
 
     delto_port = LaunchConfiguration("delto_port")
 
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            "fingertip_sensor",
+            default_value="false",
+            description="Enable fingertip force/torque sensors"
+        )
+    )
+    fingertip_sensor = LaunchConfiguration("fingertip_sensor")
+
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            "io",
+            default_value="false",
+            description="Enable IO interface"
+        )
+    )
+    io = LaunchConfiguration("io")
+
     # Get paths to config files
     robot_description_content = Command(
         [
@@ -71,7 +92,13 @@ def generate_launch_description():
             delto_ip,
             " ",
             "delto_port:=",
-            delto_port
+            delto_port,
+            " ",
+            "fingertip_sensor:=",
+            fingertip_sensor,
+            " ",
+            "io:=",
+            io,
         ]
     )
 
@@ -79,19 +106,24 @@ def generate_launch_description():
 
     robot_controllers = PathJoinSubstitution(
         [FindPackageShare("dg3f_m_driver"), "config",
-         "dg3f_m_effort_controller.yaml"]
+         "dg3f_m_pid_controller.yaml"]
     )
 
     # ROS2 Control Node
     control_node = Node(
+        namespace=ns,
         package="controller_manager",
         executable="ros2_control_node",
-        parameters=[robot_description, robot_controllers],
+        parameters=[robot_controllers],
+        remappings=[
+            ("~/robot_description", "/" + ns + "/robot_description"),
+        ],
         output="screen",
     )
 
     # Robot State Publisher
     robot_state_pub_node = Node(
+        namespace=ns,
         package="robot_state_publisher",
         executable="robot_state_publisher",
         output="screen",
@@ -102,15 +134,15 @@ def generate_launch_description():
     joint_state_broadcaster_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["joint_state_broadcaster"],
+        arguments=["joint_state_broadcaster", "-c", "/" + ns + "/controller_manager"],
         output="screen",
     )
 
-    # Delto 5F Controller
-    delto_controller_spawner = Node(
+    # PID Controller (위치값 입력 → effort 출력)
+    pid_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["effort_controller"],
+        arguments=["pid_controller", "-c", "/" + ns + "/controller_manager"],
         output="screen",
     )
 
@@ -119,7 +151,7 @@ def generate_launch_description():
         control_node,
         robot_state_pub_node,
         joint_state_broadcaster_spawner,
-        delto_controller_spawner
+        pid_controller_spawner
     ]
 
     return LaunchDescription(declared_arguments + nodes)
