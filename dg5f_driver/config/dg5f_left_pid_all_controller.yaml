@@ -1,4 +1,4 @@
-controller_manager:
+/**/controller_manager:
   ros__parameters:
     update_rate: 300
 
@@ -10,7 +10,7 @@ controller_manager:
       type: joint_state_broadcaster/JointStateBroadcaster
 
 # ------------- 각 조인트별 PI 게인 -------------
-lj_dg_pospid:
+/**/lj_dg_pospid:
   ros__parameters:
     dof_names:
       [
@@ -59,7 +59,7 @@ lj_dg_pospid:
       lj_dg_5_3: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
       lj_dg_5_4: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
 # Joint State Broadcaster
-joint_state_broadcaster:
+/**/joint_state_broadcaster:
   ros__parameters:
     update_rate: 300
     joints:

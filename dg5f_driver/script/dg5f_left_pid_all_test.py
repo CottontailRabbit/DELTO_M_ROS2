@@ -49,11 +49,11 @@ angles = [
         0.0, 0.0, 0.0, 0.0],
 
 
-    [0.0942477796076938, 0.010471975511965978, 0.03490658503988659, 0.054105206811824215,
-        0.153588974175501, 1.4259339988793673, 1.6126842288427605, 0.6422811647339133,
-        0.019198621771937624, 1.3805554383275147, 1.5812683023068625, 0.7347836150896128,
-        -0.006981317007977318, 1.4433872913993107, 1.6126842288427605, 0.8604473212332044,
-        0.012217304763960306, -0.10821041362364843, 1.541125729510993, 1.6580627893946132],
+    [0.0, 0.0, 0.0, 1.5708,
+        0.0, 0.0, 0.0, 0.0,
+        0.0, 0.0, 0.0, 0.0,
+        0.0, 0.0, 0.0, 0.0,
+        0.0, 0.0, 0.0, 0.0],
 ]
 
 global index
@@ -71,7 +71,7 @@ class PIDControlTestAll(Node):
                             "lj_dg_4_1", "lj_dg_4_2", "lj_dg_4_3", "lj_dg_4_4",
                             "lj_dg_5_1", "lj_dg_5_2", "lj_dg_5_3", "lj_dg_5_4"]
 
-        topic_name = '/lj_dg_pospid/reference'
+        topic_name = '/dg5f_left/lj_dg_pospid/reference'
         self.joint_publisher = self.create_publisher(
             MultiDOFCommand,
             topic_name,
@@ -91,7 +91,7 @@ class PIDControlTestAll(Node):
         msg = MultiDOFCommand()
         msg.dof_names = self.joint_names
 
-        position = angles[index % 2]
+        position = angles[index % len(angles)]
 
         msg.values = position
         msg.values_dot = [0.0] * len(position)  # Same length as position array

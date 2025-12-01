@@ -43,14 +43,14 @@ class JointTrajectoryPublisher(Node):
     def __init__(self):
         super().__init__('joint_trajectory_publisher')
         self.publisher_ = self.create_publisher(
-            JointTrajectory, '/dg5f_left_controller/joint_trajectory', 10)
+            JointTrajectory, '/dg5f_right/delto_controller/joint_trajectory', 10)
         timer_period = 2.0
         self.timer = self.create_timer(timer_period, self.timer_callback)
-        self.joint_names = ["lj_dg_1_1", "lj_dg_1_2", "lj_dg_1_3", "lj_dg_1_4",
-                            "lj_dg_2_1", "lj_dg_2_2", "lj_dg_2_3", "lj_dg_2_4",
-                            "lj_dg_3_1", "lj_dg_3_2", "lj_dg_3_3", "lj_dg_3_4",
-                            "lj_dg_4_1", "lj_dg_4_2", "lj_dg_4_3", "lj_dg_4_4",
-                            "lj_dg_5_1", "lj_dg_5_2", "lj_dg_5_3", "lj_dg_5_4"]
+        self.joint_names = ["rj_dg_1_1", "rj_dg_1_2", "rj_dg_1_3", "rj_dg_1_4",
+                            "rj_dg_2_1", "rj_dg_2_2", "rj_dg_2_3", "rj_dg_2_4",
+                            "rj_dg_3_1", "rj_dg_3_2", "rj_dg_3_3", "rj_dg_3_4",
+                            "rj_dg_4_1", "rj_dg_4_2", "rj_dg_4_3", "rj_dg_4_4",
+                            "rj_dg_5_1", "rj_dg_5_2", "rj_dg_5_3", "rj_dg_5_4"]
 
         self.angles = [[0.0, 0.0, 0.0, 0.0,
                         0.0, 0.0, 0.0, 0.0,
@@ -58,7 +58,7 @@ class JointTrajectoryPublisher(Node):
                         0.0, 0.0, 0.0, 0.0,
                         0.0, 0.0, 0.0, 0.0],
 
-                       [0.0, 0.0, d2r(-80), d2r(-80),
+                       [0.0, 0.0, d2r(80), d2r(80),
                         0.0, 0.0, 0.0, 0.0,
                         0.0, 0.0, 0.0, 0.0,
                         0.0, 0.0, 0.0, 0.0,
@@ -96,7 +96,7 @@ class JointTrajectoryPublisher(Node):
 
         point = JointTrajectoryPoint()
         point.positions = self.angles[self.index]
-        point.time_from_start = Duration(sec=1, nanosec=0)
+        point.time_from_start = Duration(sec=0, nanosec=0)
 
         message.points.append(point)
         self.get_logger().info("Joint Trajectory  #{} publish : {}".format(

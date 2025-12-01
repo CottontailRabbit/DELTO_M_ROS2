@@ -1,4 +1,4 @@
-controller_manager:
+/**/controller_manager:
   ros__parameters:
     update_rate: 300
 
@@ -29,7 +29,7 @@ controller_manager:
       type: joint_state_broadcaster/JointStateBroadcaster
 
 # ------------- 각 조인트별 PI 게인 -------------
-rj_dg_1_1_pospid:
+/**/rj_dg_1_1_pospid:
   ros__parameters:
     dof_names: ["rj_dg_1_1"]
     command_interface: effort
@@ -37,7 +37,7 @@ rj_dg_1_1_pospid:
     gains:
       rj_dg_1_1: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
 
-rj_dg_1_2_pospid:
+/**/rj_dg_1_2_pospid:
   ros__parameters:
     dof_names: ["rj_dg_1_2"]
     command_interface: effort
@@ -45,7 +45,7 @@ rj_dg_1_2_pospid:
     gains:
       rj_dg_1_2: { p: 4.0, i: .0, d: 0.0, i_clamp: 10.0 }
 
-rj_dg_1_3_pospid:
+/**/rj_dg_1_3_pospid:
   ros__parameters:
     dof_names: ["rj_dg_1_3"]
     command_interface: effort
@@ -53,7 +53,7 @@ rj_dg_1_3_pospid:
     gains:
       rj_dg_1_3: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
 
-rj_dg_1_4_pospid:
+/**/rj_dg_1_4_pospid:
   ros__parameters:
     dof_names: ["rj_dg_1_4"]
     command_interface: effort
@@ -61,7 +61,7 @@ rj_dg_1_4_pospid:
     gains:
       rj_dg_1_4: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
 
-rj_dg_2_1_pospid:
+/**/rj_dg_2_1_pospid:
   ros__parameters:
     dof_names: ["rj_dg_2_1"]
     command_interface: effort
@@ -69,7 +69,7 @@ rj_dg_2_1_pospid:
     gains:
       rj_dg_2_1: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
 
-rj_dg_2_2_pospid:
+/**/rj_dg_2_2_pospid:
   ros__parameters:
     dof_names: ["rj_dg_2_2"]
     command_interface: effort
@@ -77,7 +77,7 @@ rj_dg_2_2_pospid:
     gains:
       rj_dg_2_2: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
 
-rj_dg_2_3_pospid:
+/**/rj_dg_2_3_pospid:
   ros__parameters:
     dof_names: ["rj_dg_2_3"]
     command_interface: effort
@@ -85,7 +85,7 @@ rj_dg_2_3_pospid:
     gains:
       rj_dg_2_3: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
 
-rj_dg_2_4_pospid:
+/**/rj_dg_2_4_pospid:
   ros__parameters:
     dof_names: ["rj_dg_2_4"]
     command_interface: effort
@@ -93,7 +93,7 @@ rj_dg_2_4_pospid:
     gains:
       rj_dg_2_4: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
 
-rj_dg_3_1_pospid:
+/**/rj_dg_3_1_pospid:
   ros__parameters:
     dof_names: ["rj_dg_3_1"]
     command_interface: effort
@@ -101,7 +101,7 @@ rj_dg_3_1_pospid:
     gains:
       rj_dg_3_1: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
 
-rj_dg_3_2_pospid:
+/**/rj_dg_3_2_pospid:
   ros__parameters:
     dof_names: ["rj_dg_3_2"]
     command_interface: effort
@@ -109,7 +109,7 @@ rj_dg_3_2_pospid:
     gains:
       rj_dg_3_2: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
 
-rj_dg_3_3_pospid:
+/**/rj_dg_3_3_pospid:
   ros__parameters:
     dof_names: ["rj_dg_3_3"]
     command_interface: effort
@@ -117,7 +117,7 @@ rj_dg_3_3_pospid:
     gains:
       rj_dg_3_3: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
 
-rj_dg_3_4_pospid:
+/**/rj_dg_3_4_pospid:
   ros__parameters:
     dof_names: ["rj_dg_3_4"]
     command_interface: effort
@@ -125,7 +125,7 @@ rj_dg_3_4_pospid:
     gains:
       rj_dg_3_4: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
 
-rj_dg_4_1_pospid:
+/**/rj_dg_4_1_pospid:
   ros__parameters:
     dof_names: ["rj_dg_4_1"]
     command_interface: effort
@@ -133,7 +133,7 @@ rj_dg_4_1_pospid:
     gains:
       rj_dg_4_1: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
 
-rj_dg_4_2_pospid:
+/**/rj_dg_4_2_pospid:
   ros__parameters:
     dof_names: ["rj_dg_4_2"]
     command_interface: effort
@@ -141,7 +141,7 @@ rj_dg_4_2_pospid:
     gains:
       rj_dg_4_2: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
 
-rj_dg_4_3_pospid:
+/**/rj_dg_4_3_pospid:
   ros__parameters:
     dof_names: ["rj_dg_4_3"]
     command_interface: effort
@@ -149,7 +149,7 @@ rj_dg_4_3_pospid:
     gains:
       rj_dg_4_3: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
 
-rj_dg_4_4_pospid:
+/**/rj_dg_4_4_pospid:
   ros__parameters:
     dof_names: ["rj_dg_4_4"]
     command_interface: effort
@@ -157,7 +157,7 @@ rj_dg_4_4_pospid:
     gains:
       rj_dg_4_4: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
 
-rj_dg_5_1_pospid:
+/**/rj_dg_5_1_pospid:
   ros__parameters:
     dof_names: ["rj_dg_5_1"]
     command_interface: effort
@@ -165,7 +165,7 @@ rj_dg_5_1_pospid:
     gains:
       rj_dg_5_1: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
 
-rj_dg_5_2_pospid:
+/**/rj_dg_5_2_pospid:
   ros__parameters:
     dof_names: ["rj_dg_5_2"]
     command_interface: effort
@@ -173,7 +173,7 @@ rj_dg_5_2_pospid:
     gains:
       rj_dg_5_2: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
 
-rj_dg_5_3_pospid:
+/**/rj_dg_5_3_pospid:
   ros__parameters:
     dof_names: ["rj_dg_5_3"]
     command_interface: effort
@@ -181,7 +181,7 @@ rj_dg_5_3_pospid:
     gains:
       rj_dg_5_3: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
 
-rj_dg_5_4_pospid:
+/**/rj_dg_5_4_pospid:
   ros__parameters:
     dof_names: ["rj_dg_5_4"]
     command_interface: effort
@@ -190,7 +190,7 @@ rj_dg_5_4_pospid:
       rj_dg_5_4: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
 
 # Joint State Broadcaster (선택)
-joint_state_broadcaster:
+/**/joint_state_broadcaster:
   ros__parameters:
     update_rate: 300
     joints:

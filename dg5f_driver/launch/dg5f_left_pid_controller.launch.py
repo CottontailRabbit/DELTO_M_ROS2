@@ -26,16 +26,6 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-"""
-DG5F Right Effort Controller Launch File
-
-This launch file starts the DG5F Right Hand with JointGroupEffortController,
-which accepts direct effort commands (no position feedback loop).
-
-Controller Type: effort_controllers/JointGroupEffortController
-Input: Direct effort values for each joint
-Topic: /<namespace>/effort_controller/commands
-"""
 
 from launch import LaunchDescription
 from launch.substitutions import (
@@ -49,7 +39,7 @@ from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
     # Namespace for this driver
-    ns = "dg5f_right"
+    ns = "dg5f_left"
 
     # Declare arguments
     declared_arguments = []
@@ -57,7 +47,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "delto_ip",
-            default_value="169.254.186.72",
+            default_value="169.254.186.73",
             description="IP address for gripper"
         )
     )
@@ -70,6 +60,7 @@ def generate_launch_description():
             description="Port for gripper"
         )
     )
+
     delto_port = LaunchConfiguration("delto_port")
 
     declared_arguments.append(
@@ -97,7 +88,7 @@ def generate_launch_description():
             " ",
             PathJoinSubstitution(
                 [FindPackageShare("dg5f_driver"), "urdf",
-                 "dg5f_right_ros2_control.xacro"]
+                 "dg5f_left_ros2_control.xacro"]
             ),
             " ",
             "delto_ip:=",
@@ -118,12 +109,12 @@ def generate_launch_description():
 
     robot_controllers = PathJoinSubstitution(
         [FindPackageShare("dg5f_driver"), "config",
-         "dg5f_right_effort_controller.yaml"]
+         "dg5f_left_pid_controller.yaml"]
     )
 
     ft_broadcaster_config = PathJoinSubstitution(
         [FindPackageShare("dg5f_driver"), "config",
-         "dg5f_right_ft_broadcaster.yaml"]
+         "dg5f_left_ft_broadcaster.yaml"]
     )
 
     # ROS2 Control Node (without FT broadcaster)
@@ -165,21 +156,23 @@ def generate_launch_description():
     joint_state_broadcaster_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=[
-            "joint_state_broadcaster",
-            "-c", "/" + ns + "/controller_manager"
-        ],
+        arguments=["joint_state_broadcaster", "-c", "/" + ns + "/controller_manager"],
         output="screen",
     )
 
-    # Effort Controller (직접 effort 입력)
-    effort_controller_spawner = Node(
+    # Spawn all individual PID controllers for each joint
+    pid_controllers = [
+        "lj_dg_1_1_pospid", "lj_dg_1_2_pospid", "lj_dg_1_3_pospid", "lj_dg_1_4_pospid",
+        "lj_dg_2_1_pospid", "lj_dg_2_2_pospid", "lj_dg_2_3_pospid", "lj_dg_2_4_pospid",
+        "lj_dg_3_1_pospid", "lj_dg_3_2_pospid", "lj_dg_3_3_pospid", "lj_dg_3_4_pospid",
+        "lj_dg_4_1_pospid", "lj_dg_4_2_pospid", "lj_dg_4_3_pospid", "lj_dg_4_4_pospid",
+        "lj_dg_5_1_pospid", "lj_dg_5_2_pospid", "lj_dg_5_3_pospid", "lj_dg_5_4_pospid",
+    ]
+
+    pid_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=[
-            "effort_controller",
-            "-c", "/" + ns + "/controller_manager"
-        ],
+        arguments=pid_controllers + ["-c", "/" + ns + "/controller_manager"],
         output="screen",
     )
 
@@ -226,7 +219,7 @@ def generate_launch_description():
         control_node_with_ft,
         robot_state_pub_node,
         joint_state_broadcaster_spawner,
-        effort_controller_spawner,
+        pid_controller_spawner,
         fingertip_1_broadcaster_spawner,
         fingertip_2_broadcaster_spawner,
         fingertip_3_broadcaster_spawner,

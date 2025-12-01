@@ -53,7 +53,7 @@ class PIDControlTestAll(Node):
                             "rj_dg_5_1", "rj_dg_5_2", "rj_dg_5_3", "rj_dg_5_4"]
 
         for joint_name in self.joint_names:
-            topic_name = f'/{joint_name}_pospid/reference'
+            topic_name = f'/dg5f_right/{joint_name}_pospid/reference'
             self.joint_publishers[joint_name] = self.create_publisher(
                 MultiDOFCommand,
                 topic_name,
