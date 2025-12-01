@@ -11,7 +11,10 @@
 
   <depend>rclcpp</depend>
   <depend>std_msgs</depend>
+  <depend>std_srvs</depend>
   <depend>boost</depend>
+  <depend>delto_tcp_comm</depend>
+  <depend>delto_hardware</depend>
   <depend>pluginlib</depend>
   <depend>hardware_interface</depend>
 

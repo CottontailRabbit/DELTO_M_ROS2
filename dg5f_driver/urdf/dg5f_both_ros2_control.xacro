@@ -1,39 +1,112 @@
 <?xml version="1.0"?>
 <robot name="delto_5f" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+    <!-- Default argument values -->
+    <xacro:arg name="dg5f_right_ip" default="192.168.31.72" />
+    <xacro:arg name="dg5f_right_port" default="502" />
+    <xacro:arg name="dg5f_right_model" default="24354" />
+  
+    <xacro:arg name="dg5f_left_ip" default="192.168.31.73" />
+    <xacro:arg name="dg5f_left_port" default="502" />
+    <xacro:arg name="dg5f_left_model" default="24354" />
 
-    <xacro:include filename="$(find dg_description)/urdf/dg5f_right.xacro" />
+    <xacro:arg name="fingertip_sensor" default="false" />
+    <xacro:arg name="io" default="false" />
+
     <xacro:include filename="$(find dg_description)/urdf/dg5f_left.xacro" />
+    <xacro:include filename="$(find dg_description)/urdf/dg5f_right.xacro" />
+
 
     <link name="base_link" />
 
     <joint name="base_joint" type="fixed">
         <parent link="base_link" />
-        <child link="right_base_link" />
-        <origin xyz="0.15 0 0" rpy="0 0 0" />
-    </joint>
-
-    <joint name="left_base_joint" type="fixed">
-        <parent link="base_link" />
         <child link="left_base_link" />
-        <origin xyz="-0.15 0 0" rpy="0 0 0" />
+        <origin xyz="0 0 0" rpy="0 0 0" />
     </joint>
 
-  <xacro:arg name="dg5f_right_ip" default="192.168.31.72" />
-  <xacro:arg name="dg5f_right_port" default="502" />
-  <xacro:arg name="dg5f_right_model" default="24354" />
-  
-  <xacro:arg name="dg5f_left_ip" default="192.168.31.73" />
-  <xacro:arg name="dg5f_left_port" default="502" />
-  <xacro:arg name="dg5f_left_model" default="24354" />
+    <!-- Left Hand Fingertip F/T sensor frames -->
+    <link name="left_fingertip_1" />
+    <joint name="left_fingertip_1_joint" type="fixed">
+        <parent link="ll_dg_1_tip" />
+        <child link="left_fingertip_1" />
+        <origin xyz="0 -0.015 0" rpy="0 0 0" />
+    </joint>
 
+    <link name="left_fingertip_2" />
+    <joint name="left_fingertip_2_joint" type="fixed">
+        <parent link="ll_dg_2_tip" />
+        <child link="left_fingertip_2" />
+        <origin xyz="0 -0.015 0" rpy="0 0 0" />
+    </joint>
+
+    <link name="left_fingertip_3" />
+    <joint name="left_fingertip_3_joint" type="fixed">
+        <parent link="ll_dg_3_tip" />
+        <child link="left_fingertip_3" />
+        <origin xyz="0 -0.015 0" rpy="0 0 0" />
+    </joint>
+
+    <link name="left_fingertip_4" />
+    <joint name="left_fingertip_4_joint" type="fixed">
+        <parent link="ll_dg_4_tip" />
+        <child link="left_fingertip_4" />
+        <origin xyz="0 -0.015 0" rpy="0 0 0" />
+    </joint>
+
+    <link name="left_fingertip_5" />
+    <joint name="left_fingertip_5_joint" type="fixed">
+        <parent link="ll_dg_5_tip" />
+        <child link="left_fingertip_5" />
+        <origin xyz="0 -0.015 0" rpy="0 0 0" />
+    </joint>
+
+    <!-- Right Hand Fingertip F/T sensor frames -->
+    <link name="right_fingertip_1" />
+    <joint name="right_fingertip_1_joint" type="fixed">
+        <parent link="rl_dg_1_tip" />
+        <child link="right_fingertip_1" />
+        <origin xyz="0 -0.015 0" rpy="0 0 0" />
+    </joint>
+
+    <link name="right_fingertip_2" />
+    <joint name="right_fingertip_2_joint" type="fixed">
+        <parent link="rl_dg_2_tip" />
+        <child link="right_fingertip_2" />
+        <origin xyz="0 -0.015 0" rpy="0 0 0" />
+    </joint>
+
+    <link name="right_fingertip_3" />
+    <joint name="right_fingertip_3_joint" type="fixed">
+        <parent link="rl_dg_3_tip" />
+        <child link="right_fingertip_3" />
+        <origin xyz="0 -0.015 0" rpy="0 0 0" />
+    </joint>
+
+    <link name="right_fingertip_4" />
+    <joint name="right_fingertip_4_joint" type="fixed">
+        <parent link="rl_dg_4_tip" />
+        <child link="right_fingertip_4" />
+        <origin xyz="0 -0.015 0" rpy="0 0 0" />
+    </joint>
+
+    <link name="right_fingertip_5" />
+    <joint name="right_fingertip_5_joint" type="fixed">
+        <parent link="rl_dg_5_tip" />
+        <child link="right_fingertip_5" />
+        <origin xyz="0 -0.015 0" rpy="0 0 0" />
+    </joint>
+
+  <!-- DG5F Right gripper hardware -->
   <ros2_control name="DG5FRightHardware" type="system">
     <hardware>
-      <plugin>dg5f_driver/SystemInterface</plugin>
+      <plugin>delto_hardware/SystemInterface</plugin>
       <param name="delto_ip">$(arg dg5f_right_ip)</param>
       <param name="delto_port">$(arg dg5f_right_port)</param>
       <param name="delto_model">$(arg dg5f_right_model)</param>
       <param name="hand_type">right</param>
+      <param name="fingertip_sensor">$(arg fingertip_sensor)</param>
+      <param name="IO">$(arg io)</param>
     </hardware>
 
     <!-- Finger 1 joints -->
@@ -150,11 +223,13 @@
   <!-- DG5F Left gripper hardware -->
   <ros2_control name="DG5FLeftHardware" type="system">
     <hardware>
-      <plugin>dg5f_driver/SystemInterface</plugin>
+      <plugin>delto_hardware/SystemInterface</plugin>
       <param name="delto_ip">$(arg dg5f_left_ip)</param>
       <param name="delto_port">$(arg dg5f_left_port)</param>
       <param name="delto_model">$(arg dg5f_left_model)</param>
       <param name="hand_type">left</param>
+      <param name="fingertip_sensor">$(arg fingertip_sensor)</param>
+      <param name="IO">$(arg io)</param>
     </hardware>
 
     <!-- Finger 1 joints -->
@@ -267,5 +342,4 @@
       <state_interface name="velocity" />
     </joint>
   </ros2_control>
-  
 </robot>

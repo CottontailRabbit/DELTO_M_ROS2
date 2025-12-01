@@ -1,6 +1,11 @@
 <?xml version="1.0"?>
 <robot name="delto_5f" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+    <!-- Default argument values -->
+    <xacro:arg name="delto_ip" default="169.254.186.73" />
+    <xacro:arg name="delto_port" default="502" />
+    <xacro:arg name="fingertip_sensor" default="false" />
+    <xacro:arg name="io" default="false" />
 
     <xacro:include filename="$(find dg_description)/urdf/dg5f_left.xacro" />
 
@@ -13,14 +18,56 @@
         <origin xyz="0 0 0" rpy="0 0 0" />
     </joint>
 
+    <!-- Fingertip F/T sensor frames -->
+    <!-- Finger 1 (Thumb) -->
+    <link name="left_fingertip_1" />
+    <joint name="left_fingertip_1_joint" type="fixed">
+        <parent link="ll_dg_1_tip" />
+        <child link="left_fingertip_1" />
+        <origin xyz="0 0 0" rpy="0 1.5708 0" />
+    </joint>
+
+    <!-- Finger 2 (Index) -->
+    <link name="left_fingertip_2" />
+    <joint name="left_fingertip_2_joint" type="fixed">
+        <parent link="ll_dg_2_tip" />
+        <child link="left_fingertip_2" />
+        <origin xyz="0 0 0" rpy="0 1.5708 0" />
+    </joint>
+
+    <!-- Finger 3 (Middle) -->
+    <link name="left_fingertip_3" />
+    <joint name="left_fingertip_3_joint" type="fixed">
+        <parent link="ll_dg_3_tip" />
+        <child link="left_fingertip_3" />
+        <origin xyz="0 0 0" rpy="0 1.5708 0" />
+    </joint>
+
+    <!-- Finger 4 (Ring) -->
+    <link name="left_fingertip_4" />
+<joint name="left_fingertip_4_joint" type="fixed">
+        <parent link="ll_dg_4_tip" />
+    <child link="left_fingertip_4" />
+        <origin xyz="0 0 0" rpy="0 1.5708 0" />
+    </joint>
+
+<!-- Finger 5 (Pinky) -->
+    <link name="left_fingertip_5" />
+    <joint name="left_fingertip_5_joint" type="fixed">
+        <parent link="ll_dg_5_tip" />
+    <child link="left_fingertip_5" />
+        <origin xyz="0 0 0" rpy="0 1.5708 0" />
+    </joint>
+
     <ros2_control name="dg5f_driver" type="system">
         <hardware>
-            <plugin>dg5f_driver/SystemInterface</plugin>
+            <plugin>delto_hardware/SystemInterface</plugin>
             <param name="delto_ip">$(arg delto_ip)</param>
             <param name="delto_port">$(arg delto_port)</param>
             <param name="delto_model">24338</param>
             <param name="hand_type">left</param>
-            <!-- <param name="firmware_version">$(arg firmware_version)</param> -->
+            <param name="fingertip_sensor">$(arg fingertip_sensor)</param>
+            <param name="IO">$(arg io)</param>
         </hardware>
 
         <!-- Finger 1 joints -->

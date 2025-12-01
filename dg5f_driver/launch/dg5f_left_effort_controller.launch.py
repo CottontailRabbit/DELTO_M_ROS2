@@ -26,15 +26,31 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+"""
+DG5F Left Effort Controller Launch File
+
+This launch file starts the DG5F Left Hand with JointGroupEffortController,
+which accepts direct effort commands (no position feedback loop).
+
+Controller Type: effort_controllers/JointGroupEffortController
+Input: Direct effort values for each joint
+Topic: /<namespace>/effort_controller/commands
+"""
 
 from launch import LaunchDescription
-from launch.substitutions import Command, FindExecutable, LaunchConfiguration, PathJoinSubstitution
+from launch.substitutions import (
+    Command, FindExecutable, LaunchConfiguration, PathJoinSubstitution
+)
 from launch.actions import DeclareLaunchArgument
+from launch.conditions import IfCondition, UnlessCondition
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
+    # Namespace for this driver
+    ns = "dg5f_left"
+
     # Declare arguments
     declared_arguments = []
 
@@ -54,17 +70,25 @@ def generate_launch_description():
             description="Port for gripper"
         )
     )
-
     delto_port = LaunchConfiguration("delto_port")
 
-    # declared_arguments.append(
-    #     DeclareLaunchArgument(
-    #         "firmware_version",
-    #         description="firmware_version for gripper"
-    #     )
-    # )
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            "fingertip_sensor",
+            default_value="false",
+            description="Enable fingertip force/torque sensors"
+        )
+    )
+    fingertip_sensor = LaunchConfiguration("fingertip_sensor")
 
-    # firmware_version = LaunchConfiguration("firmware_version")
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            "io",
+            default_value="false",
+            description="Enable IO interface"
+        )
+    )
+    io = LaunchConfiguration("io")
 
     # Get paths to config files
     robot_description_content = Command(
@@ -81,9 +105,12 @@ def generate_launch_description():
             " ",
             "delto_port:=",
             delto_port,
-            # " ",
-            # "firmware_version:=",
-            # firmware_version
+            " ",
+            "fingertip_sensor:=",
+            fingertip_sensor,
+            " ",
+            "io:=",
+            io,
         ]
     )
 
@@ -91,19 +118,43 @@ def generate_launch_description():
 
     robot_controllers = PathJoinSubstitution(
         [FindPackageShare("dg5f_driver"), "config",
-         "dg5f_left_pid_controller.yaml"]
+         "dg5f_left_effort_controller.yaml"]
     )
 
-    # ROS2 Control Node
+    ft_broadcaster_config = PathJoinSubstitution(
+        [FindPackageShare("dg5f_driver"), "config",
+         "dg5f_left_ft_broadcaster.yaml"]
+    )
+
+    # ROS2 Control Node (without FT broadcaster)
     control_node = Node(
+        namespace=ns,
         package="controller_manager",
         executable="ros2_control_node",
-        parameters=[robot_description, robot_controllers],
+        parameters=[robot_controllers],
+        remappings=[
+            ("~/robot_description", "/" + ns + "/robot_description"),
+        ],
         output="screen",
+        condition=UnlessCondition(fingertip_sensor),
+    )
+
+    # ROS2 Control Node with FT Broadcaster (conditional)
+    control_node_with_ft = Node(
+        namespace=ns,
+        package="controller_manager",
+        executable="ros2_control_node",
+        parameters=[robot_controllers, ft_broadcaster_config],
+        remappings=[
+            ("~/robot_description", "/" + ns + "/robot_description"),
+        ],
+        output="screen",
+        condition=IfCondition(fingertip_sensor),
     )
 
     # Robot State Publisher
     robot_state_pub_node = Node(
+        namespace=ns,
         package="robot_state_publisher",
         executable="robot_state_publisher",
         output="screen",
@@ -114,32 +165,73 @@ def generate_launch_description():
     joint_state_broadcaster_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["joint_state_broadcaster"],
+        arguments=[
+            "joint_state_broadcaster",
+            "-c", "/" + ns + "/controller_manager"
+        ],
         output="screen",
     )
 
-    # Spawn all individual PID controllers for each joint
-    pid_controllers = [
-        "lj_dg_1_1_pospid", "lj_dg_1_2_pospid", "lj_dg_1_3_pospid", "lj_dg_1_4_pospid",
-        "lj_dg_2_1_pospid", "lj_dg_2_2_pospid", "lj_dg_2_3_pospid", "lj_dg_2_4_pospid",
-        "lj_dg_3_1_pospid", "lj_dg_3_2_pospid", "lj_dg_3_3_pospid", "lj_dg_3_4_pospid",
-        "lj_dg_4_1_pospid", "lj_dg_4_2_pospid", "lj_dg_4_3_pospid", "lj_dg_4_4_pospid",
-        "lj_dg_5_1_pospid", "lj_dg_5_2_pospid", "lj_dg_5_3_pospid", "lj_dg_5_4_pospid",
-    ]
-
-    pid_controller_spawner = Node(
+    # Effort Controller (직접 effort 입력)
+    effort_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=pid_controllers,
+        arguments=[
+            "effort_controller",
+            "-c", "/" + ns + "/controller_manager"
+        ],
         output="screen",
+    )
+
+    # Fingertip sensor broadcasters (conditionally loaded)
+    fingertip_1_broadcaster_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["fingertip_1_broadcaster", "-c", "/" + ns + "/controller_manager"],
+        output="screen",
+        condition=IfCondition(fingertip_sensor),
+    )
+    fingertip_2_broadcaster_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["fingertip_2_broadcaster", "-c", "/" + ns + "/controller_manager"],
+        output="screen",
+        condition=IfCondition(fingertip_sensor),
+    )
+    fingertip_3_broadcaster_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["fingertip_3_broadcaster", "-c", "/" + ns + "/controller_manager"],
+        output="screen",
+        condition=IfCondition(fingertip_sensor),
+    )
+    fingertip_4_broadcaster_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["fingertip_4_broadcaster", "-c", "/" + ns + "/controller_manager"],
+        output="screen",
+        condition=IfCondition(fingertip_sensor),
+    )
+    fingertip_5_broadcaster_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["fingertip_5_broadcaster", "-c", "/" + ns + "/controller_manager"],
+        output="screen",
+        condition=IfCondition(fingertip_sensor),
     )
 
     # List all nodes to start
     nodes = [
         control_node,
+        control_node_with_ft,
         robot_state_pub_node,
         joint_state_broadcaster_spawner,
-        pid_controller_spawner
+        effort_controller_spawner,
+        fingertip_1_broadcaster_spawner,
+        fingertip_2_broadcaster_spawner,
+        fingertip_3_broadcaster_spawner,
+        fingertip_4_broadcaster_spawner,
+        fingertip_5_broadcaster_spawner,
     ]
 
     return LaunchDescription(declared_arguments + nodes)
