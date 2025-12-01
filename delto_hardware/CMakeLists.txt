@@ -65,11 +65,6 @@ install(
 )
 
 install(
-  DIRECTORY config launch urdf
-  DESTINATION share/${PROJECT_NAME}
-)
-
-install(
   FILES delto_hardware.xml
   DESTINATION share/${PROJECT_NAME}
 )
