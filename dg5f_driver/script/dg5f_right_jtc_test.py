@@ -43,7 +43,7 @@ class JointTrajectoryPublisher(Node):
     def __init__(self):
         super().__init__('joint_trajectory_publisher')
         self.publisher_ = self.create_publisher(
-            JointTrajectory, '/dg5f_right/delto_controller/joint_trajectory', 10)
+            JointTrajectory, '/dg5f_right/dg5f_right_controller/joint_trajectory', 10)
         timer_period = 2.0
         self.timer = self.create_timer(timer_period, self.timer_callback)
         self.joint_names = ["rj_dg_1_1", "rj_dg_1_2", "rj_dg_1_3", "rj_dg_1_4",
