@@ -40,7 +40,7 @@ class dg5fDriver : public rclcpp::Node {
         "/joint_states", 10);
 
     subscription_ = this->create_subscription<std_msgs::msg::Float32MultiArray>(
-        "/target_joint", 10,
+        "/taget_joint", 10,
         std::bind(&dg5fDriver::topic_callback, this, std::placeholders::_1));
 
     timer_ = this->create_wall_timer(
@@ -83,6 +83,7 @@ class dg5fDriver : public rclcpp::Node {
 
   void timer_callback() {
     data = delto_client_->get_data();
+    // this->get_logger().info("Received data fr som DG5F");S?
     RCLCPP_INFO(this->get_logger(), "Received data from DG5F");
     // Publish joint states
     auto joint_state = sensor_msgs::msg::JointState();
