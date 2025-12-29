@@ -33,7 +33,7 @@
     command_interface: effort
     reference_and_state_interfaces: ["position"]
     gains:
-      j_dg_1_1: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
+      j_dg_1_1: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
 
 /**/j_dg_1_2_pospid:
   ros__parameters:
@@ -41,7 +41,7 @@
     command_interface: effort
     reference_and_state_interfaces: ["position"]
     gains:
-      j_dg_1_2: { p: 4.0, i: .0, d: 0.0, i_clamp: 10.0 }
+      j_dg_1_2: { p: 1.5, i: .0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
 
 /**/j_dg_1_3_pospid:
   ros__parameters:
@@ -49,7 +49,7 @@
     command_interface: effort
     reference_and_state_interfaces: ["position"]
     gains:
-      j_dg_1_3: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
+      j_dg_1_3: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
 
 /**/j_dg_1_4_pospid:
   ros__parameters:
@@ -57,7 +57,7 @@
     command_interface: effort
     reference_and_state_interfaces: ["position"]
     gains:
-      j_dg_1_4: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
+      j_dg_1_4: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
 
 /**/j_dg_2_1_pospid:
   ros__parameters:
@@ -65,7 +65,7 @@
     command_interface: effort
     reference_and_state_interfaces: ["position"]
     gains:
-      j_dg_2_1: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
+      j_dg_2_1: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
 
 /**/j_dg_2_2_pospid:
   ros__parameters:
@@ -73,7 +73,7 @@
     command_interface: effort
     reference_and_state_interfaces: ["position"]
     gains:
-      j_dg_2_2: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
+      j_dg_2_2: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
 
 /**/j_dg_2_3_pospid:
   ros__parameters:
@@ -81,7 +81,7 @@
     command_interface: effort
     reference_and_state_interfaces: ["position"]
     gains:
-      j_dg_2_3: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
+      j_dg_2_3: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
 
 /**/j_dg_2_4_pospid:
   ros__parameters:
@@ -89,7 +89,7 @@
     command_interface: effort
     reference_and_state_interfaces: ["position"]
     gains:
-      j_dg_2_4: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
+      j_dg_2_4: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
 
 /**/j_dg_3_1_pospid:
   ros__parameters:
@@ -97,7 +97,7 @@
     command_interface: effort
     reference_and_state_interfaces: ["position"]
     gains:
-      j_dg_3_1: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
+      j_dg_3_1: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
 
 /**/j_dg_3_2_pospid:
   ros__parameters:
@@ -105,7 +105,7 @@
     command_interface: effort
     reference_and_state_interfaces: ["position"]
     gains:
-      j_dg_3_2: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
+      j_dg_3_2: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
 
 /**/j_dg_3_3_pospid:
   ros__parameters:
@@ -113,7 +113,7 @@
     command_interface: effort
     reference_and_state_interfaces: ["position"]
     gains:
-      j_dg_3_3: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
+      j_dg_3_3: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
 
 /**/j_dg_3_4_pospid:
   ros__parameters:
@@ -121,7 +121,7 @@
     command_interface: effort
     reference_and_state_interfaces: ["position"]
     gains:
-      j_dg_3_4: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
+      j_dg_3_4: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
 
 /**/j_dg_4_1_pospid:
   ros__parameters:
@@ -129,7 +129,7 @@
     command_interface: effort
     reference_and_state_interfaces: ["position"]
     gains:
-      j_dg_4_1: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
+      j_dg_4_1: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
 
 /**/j_dg_4_2_pospid:
   ros__parameters:
@@ -137,7 +137,7 @@
     command_interface: effort
     reference_and_state_interfaces: ["position"]
     gains:
-      j_dg_4_2: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
+      j_dg_4_2: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
 
 /**/j_dg_4_3_pospid:
   ros__parameters:
@@ -145,7 +145,7 @@
     command_interface: effort
     reference_and_state_interfaces: ["position"]
     gains:
-      j_dg_4_3: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
+      j_dg_4_3: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
 
 /**/j_dg_4_4_pospid:
   ros__parameters:
@@ -153,7 +153,7 @@
     command_interface: effort
     reference_and_state_interfaces: ["position"]
     gains:
-      j_dg_4_4: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
+      j_dg_4_4: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
 
 /**/j_dg_1_inner_pospid:
   ros__parameters:
@@ -161,7 +161,7 @@
     command_interface: effort
     reference_and_state_interfaces: ["position"]
     gains:
-      j_dg_1_inner: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
+      j_dg_1_inner: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
 
 /**/j_dg_4_inner_pospid:
   ros__parameters:
@@ -169,7 +169,7 @@
     command_interface: effort
     reference_and_state_interfaces: ["position"]
     gains:
-      j_dg_4_inner: { p: 4.0, i: 0.0, d: 0.0, i_clamp: 10.0 }
+      j_dg_4_inner: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
 
 # Joint State Broadcaster (선택)
 /**/joint_state_broadcaster:
