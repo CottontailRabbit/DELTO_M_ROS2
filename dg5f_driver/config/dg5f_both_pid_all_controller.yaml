@@ -38,26 +38,26 @@
     command_interface: effort
     reference_and_state_interfaces: ["position"]
     gains:
-      lj_dg_1_1: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      lj_dg_1_2: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      lj_dg_1_3: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      lj_dg_1_4: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      lj_dg_2_1: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      lj_dg_2_2: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      lj_dg_2_3: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      lj_dg_2_4: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      lj_dg_3_1: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      lj_dg_3_2: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      lj_dg_3_3: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      lj_dg_3_4: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      lj_dg_4_1: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      lj_dg_4_2: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      lj_dg_4_3: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      lj_dg_4_4: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      lj_dg_5_1: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      lj_dg_5_2: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      lj_dg_5_3: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      lj_dg_5_4: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      lj_dg_1_1: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      lj_dg_1_2: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      lj_dg_1_3: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      lj_dg_1_4: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      lj_dg_2_1: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      lj_dg_2_2: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      lj_dg_2_3: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      lj_dg_2_4: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      lj_dg_3_1: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      lj_dg_3_2: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      lj_dg_3_3: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      lj_dg_3_4: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      lj_dg_4_1: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      lj_dg_4_2: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      lj_dg_4_3: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      lj_dg_4_4: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      lj_dg_5_1: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      lj_dg_5_2: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      lj_dg_5_3: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      lj_dg_5_4: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
 
 /**/rj_dg_pospid:
   ros__parameters:
@@ -87,26 +87,26 @@
     command_interface: effort
     reference_and_state_interfaces: ["position"]
     gains:
-      rj_dg_1_1: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      rj_dg_1_2: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      rj_dg_1_3: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      rj_dg_1_4: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      rj_dg_2_1: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      rj_dg_2_2: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      rj_dg_2_3: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      rj_dg_2_4: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      rj_dg_3_1: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      rj_dg_3_2: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      rj_dg_3_3: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      rj_dg_3_4: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      rj_dg_4_1: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      rj_dg_4_2: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      rj_dg_4_3: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      rj_dg_4_4: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      rj_dg_5_1: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      rj_dg_5_2: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      rj_dg_5_3: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
-      rj_dg_5_4: { p: 1.0, i: 0.0, d: 0.0, i_clamp: 0.0 }
+      rj_dg_1_1: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      rj_dg_1_2: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      rj_dg_1_3: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      rj_dg_1_4: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      rj_dg_2_1: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      rj_dg_2_2: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      rj_dg_2_3: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      rj_dg_2_4: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      rj_dg_3_1: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      rj_dg_3_2: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      rj_dg_3_3: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      rj_dg_3_4: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      rj_dg_4_1: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      rj_dg_4_2: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      rj_dg_4_3: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      rj_dg_4_4: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      rj_dg_5_1: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      rj_dg_5_2: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      rj_dg_5_3: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
+      rj_dg_5_4: { p: 1.5, i: 0.0, d: 0.0, i_clamp_max: 0.0, i_clamp_min: 0.0 }
 # Joint State Broadcaster
 /**/joint_state_broadcaster:
   ros__parameters:
