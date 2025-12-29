@@ -33,7 +33,7 @@ install(
   script/dg5f_right_pid_test.py
   script/dg5f_left_pid_all_test.py
   script/dg5f_right_pid_all_test.py
-  script/manus_retarget.py
+  script/manus_retarget/manus_retarget.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
