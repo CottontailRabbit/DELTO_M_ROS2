@@ -58,7 +58,10 @@ struct DeltoReceivedData {
   std::vector<double> temperature;       // Celsius
   std::vector<double> velocity;          // rad/s
   std::vector<bool> gpio;                // GPIO states (4 elements)
-  std::vector<double> fingertip_sensor;  // F/T sensor data (30 elements: 5 fingers × 6 axes)
+  std::vector<double> fingertip_sensor;  // F/T sensor data (finger_count × 6 axes)
+                                         // DG3F: 18 elements (3 fingers)
+                                         // DG4F: 24 elements (4 fingers)
+                                         // DG5F: 30 elements (5 fingers)
 };
 
 // ============================================================================
@@ -135,14 +138,14 @@ class Communication {
   static constexpr double CURRENT_SCALE = 1.0;
   static constexpr double VELOCITY_SCALE = (M_PI / 1800.0);
 
-  // F/T sensor data size: 2 bytes × 6 axes × 5 fingers = 60 bytes
-  static constexpr int FINGERTIP_SENSOR_SIZE = 2 * 6 * 5;
   // GPIO data size: 4 bytes (Output 1-3, Input 1)
   static constexpr int GPIO_SIZE = 4;
 
   // Helper functions
   int GetMotorCount(uint16_t model);
   int GetBytePerMotor(uint16_t model);
+  int GetFingerCount(uint16_t model);
+  int GetFingertipSensorSize(uint16_t model);
   int16_t CalculateExpectedResponseLength();
   bool ReadFullPacket(std::vector<uint8_t>& buffer);
   int16_t CombineMsg(uint8_t data1, uint8_t data2);
