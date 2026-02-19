@@ -76,15 +76,8 @@ int Communication::GetFingerCount(uint16_t model) {
     case static_cast<uint16_t>(ModelType::DG5F_R):
       return 5;
     default:
-      std::cerr << "Unknown model type for finger count: 0x" << std::hex << model << std::dec
-                << std::endl;
-      return 3;  // Default to 3 fingers
+      return 5;
   }
-}
-
-int Communication::GetFingertipSensorSize(uint16_t model) {
-  // F/T sensor data size: 2 bytes × 6 axes × finger_count
-  return 2 * 6 * GetFingerCount(model);
 }
 
 bool Communication::IsNewModel() const {
@@ -105,7 +98,7 @@ int16_t Communication::CalculateExpectedResponseLength() {
 
   if (SupportsExtendedFeatures()) {
     if (fingertip_sensor_) {
-      length += GetFingertipSensorSize(model_);
+      length += 2 * 6 * finger_count_;  // 2 bytes × 6 axes × N fingers
     }
     if (io_) {
       length += GPIO_SIZE;
@@ -142,6 +135,7 @@ Communication::Communication(const std::string& ip, int port, uint16_t model,
       socket_(io_context_),
       motor_count_(GetMotorCount(model)),
       byte_per_motor_(GetBytePerMotor(model)),
+      finger_count_(GetFingerCount(model)),
       expected_response_length_(CalculateExpectedResponseLength()) {}
 
 std::string Communication::ModelToString(uint16_t model) {
@@ -392,13 +386,12 @@ DeltoReceivedData Communication::GetData() {
     }
   }
 
-  // Parse fingertip sensor data (only for models with F/T sensor enabled)
+  // Parse fingertip sensor data (model-specific finger count)
   if (SupportsExtendedFeatures() && fingertip_sensor_) {
     size_t ft_base = HEADER_SIZE + motor_count_ * byte_per_motor_;
-    int finger_count = GetFingerCount(model_);
-    received_data.fingertip_sensor.resize(finger_count * 6);
+    received_data.fingertip_sensor.resize(finger_count_ * 6);  // N fingers × 6 axes
 
-    for (int finger = 0; finger < finger_count; finger++) {
+    for (int finger = 0; finger < finger_count_; finger++) {
       for (int axis = 0; axis < 6; axis++) {
         size_t offset = ft_base + (finger * 6 + axis) * 2;
         uint8_t dataL = response[offset];
@@ -420,7 +413,7 @@ DeltoReceivedData Communication::GetData() {
   if (SupportsExtendedFeatures() && io_) {
     size_t gpio_base = HEADER_SIZE + motor_count_ * byte_per_motor_;
     if (fingertip_sensor_) {
-      gpio_base += GetFingertipSensorSize(model_);
+      gpio_base += 2 * 6 * finger_count_;  // 2 bytes × 6 axes × N fingers
     }
 
     received_data.gpio.resize(4);
