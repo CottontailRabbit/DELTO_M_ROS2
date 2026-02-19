@@ -42,6 +42,7 @@ from launch.substitutions import (
     Command, FindExecutable, LaunchConfiguration, PathJoinSubstitution
 )
 from launch.actions import DeclareLaunchArgument
+from launch.conditions import IfCondition, UnlessCondition
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
@@ -120,7 +121,12 @@ def generate_launch_description():
          "dg3f_m_effort_controller.yaml"]
     )
 
-    # ROS2 Control Node
+    ft_broadcaster_config = PathJoinSubstitution(
+        [FindPackageShare("dg3f_m_driver"), "config",
+         "dg3f_m_ft_broadcaster.yaml"]
+    )
+
+    # ROS2 Control Node (FT 센서 없음)
     control_node = Node(
         namespace=ns,
         package="controller_manager",
@@ -130,6 +136,20 @@ def generate_launch_description():
             ("~/robot_description", "/" + ns + "/robot_description"),
         ],
         output="screen",
+        condition=UnlessCondition(fingertip_sensor),
+    )
+
+    # ROS2 Control Node (FT 센서 활성화)
+    control_node_with_ft = Node(
+        namespace=ns,
+        package="controller_manager",
+        executable="ros2_control_node",
+        parameters=[robot_controllers, ft_broadcaster_config],
+        remappings=[
+            ("~/robot_description", "/" + ns + "/robot_description"),
+        ],
+        output="screen",
+        condition=IfCondition(fingertip_sensor),
     )
 
     # Robot State Publisher
@@ -163,12 +183,41 @@ def generate_launch_description():
         output="screen",
     )
 
+    # Fingertip F/T sensor broadcasters (조건부)
+    fingertip_1_broadcaster_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["fingertip_1_broadcaster", "-c", "/" + ns + "/controller_manager"],
+        output="screen",
+        condition=IfCondition(fingertip_sensor),
+    )
+
+    fingertip_2_broadcaster_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["fingertip_2_broadcaster", "-c", "/" + ns + "/controller_manager"],
+        output="screen",
+        condition=IfCondition(fingertip_sensor),
+    )
+
+    fingertip_3_broadcaster_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["fingertip_3_broadcaster", "-c", "/" + ns + "/controller_manager"],
+        output="screen",
+        condition=IfCondition(fingertip_sensor),
+    )
+
     # List all nodes to start
     nodes = [
         control_node,
+        control_node_with_ft,
         robot_state_pub_node,
         joint_state_broadcaster_spawner,
-        effort_controller_spawner
+        effort_controller_spawner,
+        fingertip_1_broadcaster_spawner,
+        fingertip_2_broadcaster_spawner,
+        fingertip_3_broadcaster_spawner,
     ]
 
     return LaunchDescription(declared_arguments + nodes)

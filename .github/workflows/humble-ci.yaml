@@ -1,9 +1,8 @@
-
-name: ROS 2 CI
+name: ROS 2 Humble CI
 
 on:
   push:
-    branches: [ humble,  humble-dev ]
+    branches: [ humble, humble-dev ]
     paths-ignore:
       - 'README.md'
   pull_request:
