@@ -1,18 +1,18 @@
-name: ROS 2 Humble CI
+name: ROS 2 Jazzy CI
 
 on:
   push:
-    branches: [ humble, humble-dev ]
+    branches: [ jazzy, jazzy-dev ]
     paths-ignore:
       - 'README.md'
   pull_request:
-    branches: [ humble, humble-dev ]
+    branches: [ jazzy, jazzy-dev ]
     paths-ignore:
       - 'README.md'
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout source
@@ -21,11 +21,11 @@ jobs:
       - name: Setup ROS 2
         uses: ros-tooling/setup-ros@v0.7
         with:
-          required-ros-distributions: humble
+          required-ros-distributions: jazzy
 
       - name: Install dependencies
         env:
-          ROS_DISTRO: humble
+          ROS_DISTRO: jazzy
         run: |
           sudo apt update
           sudo rosdep init || true
@@ -34,5 +34,5 @@ jobs:
 
       - name: Build with colcon
         run: |
-          source /opt/ros/humble/setup.bash
+          source /opt/ros/jazzy/setup.bash
           colcon build --event-handlers console_direct+ --packages-skip dg_sdk_ros2_bridge
