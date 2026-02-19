@@ -69,124 +69,144 @@
 
     gains:
       rj_dg_1_1:
-        p: 1.0
+        p: 1.5
         i: 0.0
         d: 0.0
-        i_clamp: 0.0
+        i_clamp_max: 0.0
+        i_clamp_min: 0.0
         ff_velocity_scale: 0.0001
       rj_dg_1_2:
-        p: 1.0
+        p: 1.5
         i: 0.0
         d: 0.0
-        i_clamp: 0.0
+        i_clamp_max: 0.0
+        i_clamp_min: 0.0
         ff_velocity_scale: 0.0001
       rj_dg_1_3:
-        p: 1.0
+        p: 1.5
         i: 0.0
         d: 0.0
-        i_clamp: 0.0
+        i_clamp_max: 0.0
+        i_clamp_min: 0.0
         ff_velocity_scale: 0.0001
       rj_dg_1_4:
-        p: 1.0
+        p: 1.5
         i: 0.0
         d: 0.0
-        i_clamp: 0.0
+        i_clamp_max: 0.0
+        i_clamp_min: 0.0
         ff_velocity_scale: 0.0001
       rj_dg_2_1:
-        p: 1.0
+        p: 1.5
         i: 0.0
         d: 0.0
-        i_clamp: 0.0
+        i_clamp_max: 0.0
+        i_clamp_min: 0.0
         ff_velocity_scale: 0.0001
       rj_dg_2_2:
-        p: 1.0
+        p: 1.5
         i: 0.0
         d: 0.0
-        i_clamp: 0.0
+        i_clamp_max: 0.0
+        i_clamp_min: 0.0
         ff_velocity_scale: 0.0001
       rj_dg_2_3:
-        p: 1.0
+        p: 1.5
         i: 0.0
         d: 0.0
-        i_clamp: 0.0
+        i_clamp_max: 0.0
+        i_clamp_min: 0.0
         ff_velocity_scale: 0.0001
       rj_dg_2_4:
-        p: 1.0
+        p: 1.5
         i: 0.0
         d: 0.0
-        i_clamp: 0.0
+        i_clamp_max: 0.0
+        i_clamp_min: 0.0
         ff_velocity_scale: 0.0001
       rj_dg_3_1:
-        p: 1.0
+        p: 1.5
         i: 0.0
         d: 0.0
-        i_clamp: 0.0
+        i_clamp_max: 0.0
+        i_clamp_min: 0.0
         ff_velocity_scale: 0.0001
       rj_dg_3_2:
-        p: 1.0
+        p: 1.5
         i: 0.0
         d: 0.0
-        i_clamp: 0.0
+        i_clamp_max: 0.0
+        i_clamp_min: 0.0
         ff_velocity_scale: 0.0001
       rj_dg_3_3:
-        p: 1.0
+        p: 1.5
         i: 0.0
         d: 0.0
-        i_clamp: 0.0
+        i_clamp_max: 0.0
+        i_clamp_min: 0.0
         ff_velocity_scale: 0.0001
       rj_dg_3_4:
-        p: 1.0
+        p: 1.5
         i: 0.0
         d: 0.0
-        i_clamp: 0.0
+        i_clamp_max: 0.0
+        i_clamp_min: 0.0
         ff_velocity_scale: 0.0001
       rj_dg_4_1:
-        p: 1.0
+        p: 1.5
         i: 0.0
         d: 0.0
-        i_clamp: 0.0
+        i_clamp_max: 0.0
+        i_clamp_min: 0.0
         ff_velocity_scale: 0.0001
       rj_dg_4_2:
-        p: 1.0
+        p: 1.5
         i: 0.0
         d: 0.0
-        i_clamp: 0.0
+        i_clamp_max: 0.0
+        i_clamp_min: 0.0
         ff_velocity_scale: 0.0001
       rj_dg_4_3:
-        p: 1.0
+        p: 1.5
         i: 0.0
         d: 0.0
-        i_clamp: 0.0
+        i_clamp_max: 0.0
+        i_clamp_min: 0.0
         ff_velocity_scale: 0.0001
       rj_dg_4_4:
-        p: 1.0
+        p: 1.5
         i: 0.0
         d: 0.0
-        i_clamp: 0.0
+        i_clamp_max: 0.0
+        i_clamp_min: 0.0
         ff_velocity_scale: 0.0001
       rj_dg_5_1:
-        p: 1.0
+        p: 1.5
         i: 0.0
         d: 0.0
-        i_clamp: 0.0
+        i_clamp_max: 0.0
+        i_clamp_min: 0.0
         ff_velocity_scale: 0.0001
       rj_dg_5_2:
-        p: 1.0
+        p: 1.5
         i: 0.0
         d: 0.0
-        i_clamp: 0.0
+        i_clamp_max: 0.0
+        i_clamp_min: 0.0
         ff_velocity_scale: 0.0001
       rj_dg_5_3:
-        p: 1.0
+        p: 1.5
         i: 0.0
         d: 0.0
-        i_clamp: 0.0
+        i_clamp_max: 0.0
+        i_clamp_min: 0.0
         ff_velocity_scale: 0.0001
       rj_dg_5_4:
-        p: 1.0
+        p: 1.5
         i: 0.0
         d: 0.0
-        i_clamp: 0.0
+        i_clamp_max: 0.0
+        i_clamp_min: 0.0
         ff_velocity_scale: 0.0001
 
 /**/joint_state_broadcaster:

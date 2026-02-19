@@ -12,6 +12,8 @@
 <robot name="dg3f_m">
   <link name="l_dg_mount">
     <inertial>
+      <origin xyz="6.4721E-09 2.1674E-05 0.0049997" rpy="0.0 0.0 0.0" />
+      <inertia ixx="1.0999E-05" ixy="-2.1734E-12" ixz="-1.2441E-12" iyy="1.1018E-05" iyz="-4.0435E-09" izz="2.0531E-05" />
       <mass value="0.035" />
     </inertial>
     <visual>

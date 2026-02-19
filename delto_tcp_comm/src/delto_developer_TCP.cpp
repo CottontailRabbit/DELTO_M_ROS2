@@ -64,6 +64,22 @@ int Communication::GetBytePerMotor(uint16_t model) {
   return 8;
 }
 
+int Communication::GetFingerCount(uint16_t model) {
+  switch (model) {
+    case static_cast<uint16_t>(ModelType::DG3F_B):
+    case static_cast<uint16_t>(ModelType::DG3F_M):
+      return 3;
+    case static_cast<uint16_t>(ModelType::DG4F):
+      return 4;
+    case static_cast<uint16_t>(ModelType::DG5F):
+    case static_cast<uint16_t>(ModelType::DG5F_L):
+    case static_cast<uint16_t>(ModelType::DG5F_R):
+      return 5;
+    default:
+      return 5;
+  }
+}
+
 bool Communication::IsNewModel() const {
   return model_ != static_cast<uint16_t>(ModelType::DG3F_B);
 }
@@ -82,7 +98,7 @@ int16_t Communication::CalculateExpectedResponseLength() {
 
   if (SupportsExtendedFeatures()) {
     if (fingertip_sensor_) {
-      length += FINGERTIP_SENSOR_SIZE;
+      length += 2 * 6 * finger_count_;  // 2 bytes × 6 axes × N fingers
     }
     if (io_) {
       length += GPIO_SIZE;
@@ -119,6 +135,7 @@ Communication::Communication(const std::string& ip, int port, uint16_t model,
       socket_(io_context_),
       motor_count_(GetMotorCount(model)),
       byte_per_motor_(GetBytePerMotor(model)),
+      finger_count_(GetFingerCount(model)),
       expected_response_length_(CalculateExpectedResponseLength()) {}
 
 std::string Communication::ModelToString(uint16_t model) {
@@ -369,12 +386,12 @@ DeltoReceivedData Communication::GetData() {
     }
   }
 
-  // Parse fingertip sensor data (only for DG5F with F/T sensor enabled)
+  // Parse fingertip sensor data (model-specific finger count)
   if (SupportsExtendedFeatures() && fingertip_sensor_) {
     size_t ft_base = HEADER_SIZE + motor_count_ * byte_per_motor_;
-    received_data.fingertip_sensor.resize(30);  // 5 fingers × 6 axes
+    received_data.fingertip_sensor.resize(finger_count_ * 6);  // N fingers × 6 axes
 
-    for (int finger = 0; finger < 5; finger++) {
+    for (int finger = 0; finger < finger_count_; finger++) {
       for (int axis = 0; axis < 6; axis++) {
         size_t offset = ft_base + (finger * 6 + axis) * 2;
         uint8_t dataL = response[offset];
@@ -392,11 +409,11 @@ DeltoReceivedData Communication::GetData() {
     }
   }
 
-  // Parse GPIO data (only for DG5F with GPIO enabled)
+  // Parse GPIO data (only for models with GPIO enabled)
   if (SupportsExtendedFeatures() && io_) {
     size_t gpio_base = HEADER_SIZE + motor_count_ * byte_per_motor_;
     if (fingertip_sensor_) {
-      gpio_base += FINGERTIP_SENSOR_SIZE;
+      gpio_base += 2 * 6 * finger_count_;  // 2 bytes × 6 axes × N fingers
     }
 
     received_data.gpio.resize(4);
