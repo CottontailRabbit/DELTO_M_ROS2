@@ -409,7 +409,7 @@ DeltoReceivedData Communication::GetData() {
     }
   }
 
-  // Parse GPIO data (only for DG5F with GPIO enabled)
+  // Parse GPIO data (only for models with GPIO enabled)
   if (SupportsExtendedFeatures() && io_) {
     size_t gpio_base = HEADER_SIZE + motor_count_ * byte_per_motor_;
     if (fingertip_sensor_) {
